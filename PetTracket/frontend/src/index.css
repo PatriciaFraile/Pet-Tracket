@@ -11,3 +11,90 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.wrapper{
+  position: relative;
+  width: 400px;
+  height: 470px;
+  box-shadow: 0 0 10px #8AFF3F;  
+  border-radius:20px;
+  padding: 40px;
+}
+.form-wrapper{
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+h2{
+  font-size: 30px;
+  text-align: center;
+  color: #99A3A4 ;
+}
+.input-group{
+  position: relative;
+  margin: 30px 0;
+  border-bottom: 2px solid black;
+}
+.input-group label{
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  transform: translateY(-50%);
+  font-size: 16px;
+  color:black;
+  pointer-events: none;
+  transition: .5s;
+}
+.input-group input{
+  width: 320px;
+  height: 40px;
+  font-size: 16px;
+  color:black;
+  padding: 0 5px;
+  background: transparent;
+  border: none;
+  outline: none;
+}
+.input-group input:focus~label,
+.input-group input:valid~label{
+  top: -5px;
+}
+.remember{
+  margin: -5px 0 15px 5px;
+}
+.remember label{
+  color:black;
+  font-size: 14px;
+}
+.remember label input{
+  accent-color:#75F566;
+}
+button{
+  position: relative;
+  width: 100%;
+  height: 40px;
+  background-color: #75F566;
+  box-shadow: 0 0 10px #75F566;
+  font-size: 16px;
+  color: black;
+  font-weight:500;
+  cursor: pointer;
+  border-radius: 30px;
+  border:none;
+}
+.signUp-link{
+  font-size: 14px;
+  text-align: center;
+  margin: 15px 0;
+}
+.signUp-link p{
+  color:black;
+}
+.signUp-link p a {
+  color:#75F566;
+  text-decoration: none;
+  font-weight: 500;
+}
+.signUp-link p a:hover{
+  text-decoration: underline;
+}
