@@ -3,6 +3,7 @@ from config.database import mongo
 from schemas.user import userEntity,usersEntity
 from models.user import User
 from config.database import collection_name
+
 user = APIRouter()
 
 @user.get('/users')
