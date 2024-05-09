@@ -10,8 +10,20 @@ user = APIRouter()
 def find_all():
     return usersEntity(collection_name.find())
 
+@user.get('/users')
+def find_all():
+    return usersEntity(collection_name.find())
+
 @user.post('/add_user')
 def create_user(user:User):
-    new_user  = dict(user)
-    id=collection_name.insert_one(new_user).inserted_id
-    return str(id)
+    try:
+        new_user  = dict(user)
+        new_user["password"] = sha256_crypt.encrypt(new_user["password"])
+        id=collection_name.insert_one(new_user).inserted_id
+        return {"message": "Accept"}
+    except Exception as e:
+        raise HTTPException(status_code=500 , detail="Error")
+ 
+@user.get('/user/{id}')
+def find_user(id:str):
+    return userEntity(collection_name.find_one({"_id":ObjectId(id)}))
