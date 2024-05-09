@@ -1,94 +1,89 @@
-import React , {useState} from "react"
-import { useNavigate } from "react-router-dom"
-import axios from 'axios'
-import Swal from "sweetalert2"
-import { useEffect } from "react"
+import React, {useState} from "react";
+import Swal from "sweetalert2";
+import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 
 const SignUp=()=>{
-    const [ user, setUser] = useState({})
-    //const navigate = useNavigate()
-    //const [registered, setRegistered] = useState(false)
 
-    /*if (registered) {
-        return navigate('/home')
-      } sale error*/
+    const [user, setUser] = useState({});
+    const [registered, setRegistered] = useState(false)
+    const navigate = useNavigate()
 
-    let eventHandle = (e) =>{
-        setUser((e1)=>{
-            return{...e1 , [e.target.id] : e.target.value}
-        })
-    }
-    
 
-    
-    const addUsers = ()=>{
-        try{
-            const response = axios.post("http://127.0.0.1:8080/add_user",user)
+
+
+    const eventHandle = (e) => {
+        setUser((e1) => ({
+            ...e1,
+            [e.target.id]: e.target.value
+        }));
+    };
+
+    if (registered) {
+        return navigate("/home")
+      }
+
+
+    const addUser = async () => {
+        try {
+            const response = await axios.post('http://127.0.0.1:8080/add_user', user);
             console.log(response.data);
+
             Swal.fire({
-                position :"center",
+                position: "center",
                 icon: "success",
-                title : "Added user",
-                showConfirmButton:false,
-                timer:2000
+                title: "User added",
+                showConfirmButton: false,
+                timer: 2000
+            });
+            setRegistered(true)
 
-            })
-           // setRegistered(true)
+           
 
-        }catch(error){
-            console.error(error)
+        } catch (error) {
+            console.error(error);
             Swal.fire({
-                position :"center",
+                position: "center",
                 icon: "error",
-                title : "User not added",
-                showConfirmButton:false,
-                timer:2000
-
-            })
+                title: "Not success",
+                showConfirmButton: false,
+                timer: 2000
+            });
         }
+    };
 
-    }
-    
+    return (
+        <div>
+            <center>
+                <div className="wrapper mt-3">
+                    <h2>Sign Up</h2>
+                    <div className="form-wrapper sign-in mt-3">
+                        <form>
+                            <div className="input-group">
+                                <input type="text" id="name" required onKeyUp={eventHandle} />
+                                <label htmlFor="name">Name</label>
+                            </div>
+                            <div className="input-group">
+                                <input type="text" id="username" required onKeyUp={eventHandle} />
+                                <label htmlFor="username">Username</label>
+                            </div>
+                            <div className="input-group">
+                                <input type="email" id="email" required onKeyUp={eventHandle} />
+                                <label htmlFor="email">Email</label>
+                            </div>
+                            <div className="input-group">
+                                <input type="password" id="password" required onKeyUp={eventHandle} />
+                                <label htmlFor="password">Password</label>
+                            </div>
 
-    
-    return(
-        <div className="wrapper mt-5">
-            <div className="form-wrapper sign-up">
-                <form action="">
-                    <div className="input-group">
-                        <input type id="username" required onKeyUp={(e)=>{
-                            eventHandle(e)
-                        }}/>
-                        <label for="">Usuario</label>
+                            <button type="button" onClick={addUser}>Sign Up</button>
+                        </form>
                     </div>
-                    <div className="input-group">
-                        <input type  id="name" required onKeyUp={(e)=>{
-                            eventHandle(e)
-                        }}/>
-                        <label for="">Nombre</label>
-                    </div>
-                    <div className="input-group">
-                        <input type="email" id="email" required onKeyUp={(e)=>{
-                            eventHandle(e)
-                        }}/>
-                        <label for="">email</label>
-                    </div>
-                    <div className="input-group">
-                        <input type="password"  id="password" required onKeyUp={(e)=>{
-                            eventHandle(e)
-                        }}/>
-                        <label for="">Contraseña</label>
-                    </div>
-                                   
-                    <button type="submit" onClick={addUsers}>Crear cuenta</button>
-                                    
-                    </form>
-            </div>
-
-
+                </div>
+            </center>
         </div>
-    )
+    );
 
 }
 export default SignUp
