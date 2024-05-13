@@ -1,8 +1,9 @@
-from fastapi import APIRouter
+from fastapi import APIRouter,HTTPException
 from config.database import mongo
 from schemas.user import userEntity,usersEntity
 from models.user import User
 from config.database import collection_name
+from passlib.hash import sha256_crypt
 
 user = APIRouter()
 
@@ -24,6 +25,3 @@ def create_user(user:User):
     except Exception as e:
         raise HTTPException(status_code=500 , detail="Error")
  
-@user.get('/user/{id}')
-def find_user(id:str):
-    return userEntity(collection_name.find_one({"_id":ObjectId(id)}))
