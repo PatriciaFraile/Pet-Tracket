@@ -14,7 +14,6 @@ const SignIn=()=>{
                     <div className="row mt-5">
                         <div className="wrapper">
                         <h2>Inicio de sesion</h2>
-                        <h2>en PetTracket</h2>
                             <div className="form-wrapper sign-in">
                                 <form action="">
                                     <div className="input-group">
@@ -25,12 +24,13 @@ const SignIn=()=>{
                                         <input type="password" required/>
                                         <label for="">Contraseña</label>
                                     </div>
-                                    <div className="remember">
-                                        <label for=""><input type="checkbox"/>Recordar Contraseña</label>
+                                    <div className="remember">                                    
+                                        <label for=""><input type="checkbox" /><b>Recordar Contraseña</b></label>
                                     </div>
                                     <button type="submit">Iniciar sesion</button>
                                     <div className="signUp-link">
-                                        <p>¿No tienes cuenta? <a href="#"className="signUpBtn-link">Registrate aqui</a></p>
+                                        <p>¿No tienes una cuenta? </p>
+                                        <p><a href="#"className="signUpBtn-link"><b>Registrate aqui</b></a></p>
                                     </div>
                                 </form>
                             </div>

@@ -1,4 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
+  background-image: linear-gradient(
+    rgba(0, 180, 156, 0.5),
+    rgba(0,180,156,0.5)
+  ),url(./img/gatofondo4.jpg);
+  background-size: cover; 
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -8,93 +17,51 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-.wrapper{
-  position: relative;
-  width: 400px;
-  height: 470px;
-  box-shadow: 0 0 10px #8AFF3F;  
-  border-radius:20px;
-  padding: 40px;
+.wrapper {
+  @apply relative w-[400px] h-[470px] shadow-[0_0_10px_#000000] p-10 rounded-[20px];
 }
-.form-wrapper{
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
+.form-wrapper {
+  @apply justify-center items-center w-full h-full;
 }
-h2{
-  font-size: 30px;
-  text-align: center;
-  color: #99A3A4 ;
+h2 {
+  @apply text-3xl text-center text-[#ffffff];
 }
-.input-group{
-  position: relative;
-  margin: 30px 0;
-  border-bottom: 2px solid black;
+.input-group {
+  @apply relative mx-0 my-[30px] border-b-2 border-b-[#e2713c] border-solid;
 }
-.input-group label{
-  position: absolute;
-  top: 50%;
-  left: 5px;
-  transform: translateY(-50%);
-  font-size: 16px;
-  color:black;
-  pointer-events: none;
-  transition: .5s;
+.input-group label {
+  @apply absolute -translate-y-2/4 text-base text-[#fcfcfc] pointer-events-none transition-[0.5s] left-[5px] top-2/4;
 }
-.input-group input{
-  width: 320px;
-  height: 40px;
-  font-size: 16px;
-  color:black;
-  padding: 0 5px;
+.input-group input {
+  @apply w-80 h-10 text-base text-[#ffffff] px-[5px] py-0 border-[none];
   background: transparent;
-  border: none;
   outline: none;
 }
-.input-group input:focus~label,
-.input-group input:valid~label{
-  top: -5px;
+.input-group input:focus ~ label,
+.input-group input:valid ~ label {
+  @apply top-[-5px];
 }
-.remember{
-  margin: -5px 0 15px 5px;
+.remember {
+  @apply mt-[-5px] ml-[5px] mr-0 mb-[15px] mb-6;
 }
-.remember label{
-  color:black;
-  font-size: 14px;
+.remember label {
+  @apply text-[#000000] text-lg;
 }
-.remember label input{
-  accent-color:#75F566;
+.remember label input {
+  @apply accent-[#e2713c] text-lg;
 }
-button{
-  position: relative;
-  width: 100%;
-  height: 40px;
-  background-color: #75F566;
-  box-shadow: 0 0 10px #75F566;
-  font-size: 16px;
-  color: black;
-  font-weight:500;
-  cursor: pointer;
-  border-radius: 30px;
-  border:none;
+button {
+  @apply relative w-full h-10 bg-[#e2713c] shadow-[0_0_10px_#75F566] text-base text-[white] font-medium cursor-pointer rounded-[30px] border-[none];
 }
-.signUp-link{
-  font-size: 14px;
-  text-align: center;
-  margin: 15px 0;
+.signUp-link {
+  @apply text-sm text-center mx-0 my-[15px];
 }
-.signUp-link p{
-  color:black;
+.signUp-link p {
+  @apply text-[white] text-xl;
 }
 .signUp-link p a {
-  color:#75F566;
-  text-decoration: none;
-  font-weight: 500;
-}
-.signUp-link p a:hover{
-  text-decoration: underline;
+  @apply text-[#000000] no-underline font-medium hover:underline text-xl;
 }
