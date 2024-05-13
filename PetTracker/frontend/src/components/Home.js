@@ -1,8 +1,9 @@
 import React from "react";
+import Sidebar from "./Sidebar";
 
 const Home = ()=>{
     return(
-        <p>Inciio</p>
+        <Sidebar />
     )
 }
 export default Home

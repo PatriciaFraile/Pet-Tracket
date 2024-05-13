@@ -65,3 +65,9 @@ button {
 .signUp-link p a {
   @apply text-[#000000] no-underline font-medium hover:underline text-xl;
 }
+.sidebar{
+  width: 14rem;
+  height: calc(100vh -52px);
+  border-right: 1px solid black;
+  
+}
