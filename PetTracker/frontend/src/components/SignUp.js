@@ -33,7 +33,7 @@ const SignUp=()=>{
             Swal.fire({
                 position: "center",
                 icon: "success",
-                title: "User added",
+                title: "Usuario añadido",
                 showConfirmButton: false,
                 timer: 2000
             });
@@ -46,7 +46,7 @@ const SignUp=()=>{
             Swal.fire({
                 position: "center",
                 icon: "error",
-                title: "Not success",
+                title: "¡Algo ha ido mal!",
                 showConfirmButton: false,
                 timer: 2000
             });
@@ -55,18 +55,18 @@ const SignUp=()=>{
 
     return (
         <div>
-            <center>
-                <div className="wrapper mt-3">
-                    <h2>Sign Up</h2>
-                    <div className="form-wrapper sign-in mt-3">
+            <center className="shadow-2xl">
+                <div className="wrapper mt-5">
+                    <h2>Registrarse</h2>
+                    <div className="form-wrapper sign-in shadow-2xl">
                         <form>
                             <div className="input-group">
                                 <input type="text" id="name" required onKeyUp={eventHandle} />
-                                <label htmlFor="name">Name</label>
+                                <label htmlFor="name">Nombre</label>
                             </div>
                             <div className="input-group">
                                 <input type="text" id="username" required onKeyUp={eventHandle} />
-                                <label htmlFor="username">Username</label>
+                                <label htmlFor="username">Nombre de Usuario</label>
                             </div>
                             <div className="input-group">
                                 <input type="email" id="email" required onKeyUp={eventHandle} />
@@ -74,10 +74,10 @@ const SignUp=()=>{
                             </div>
                             <div className="input-group">
                                 <input type="password" id="password" required onKeyUp={eventHandle} />
-                                <label htmlFor="password">Password</label>
+                                <label htmlFor="password">Contraseña</label>
                             </div>
 
-                            <button type="button" onClick={addUser}>Sign Up</button>
+                            <button type="button" onClick={addUser}>Registrarse</button>
                         </form>
                     </div>
                 </div>

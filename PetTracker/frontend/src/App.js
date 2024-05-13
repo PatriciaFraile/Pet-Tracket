@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
@@ -9,11 +8,10 @@ import {Routes,Route} from 'react-router-dom'
 function App() {
   return (
     <div>
-    <SignUp/>
     <Routes>
-      <Route path='/login' element={<SignIn/>}/>
       <Route path='/register' element={<SignUp/>}/>
       <Route path='/home' element={<Home/>}/>
+      <Route path='/login' element={<SignIn/>}/>
     </Routes>
       </div>
 
