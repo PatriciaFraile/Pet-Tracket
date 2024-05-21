@@ -1,29 +1,29 @@
 from fastapi import APIRouter,HTTPException
-from config.database import mongo
-from models.user import User , UserLogin
-from config.database import collection_name
-from passlib.hash import sha256_crypt
-from config.crud import hash_password , get_user_by_username,verify_password
+from models.user import User , UserLogin, UserCreate
+from controller.crud import hash_password , get_user_by_username,verify_password,create_user,send_reset_email
+from config.database import store_reset_code,collection_name,collection_users
+import datetime
+import bcrypt
 
 user = APIRouter()
 
-
-
-@user.post('/add_user')
-def create_user(user:User):
-    try:
-        new_user  = dict(user)
-        new_user["password"] = hash_password(new_user["password"])
-        id=collection_name.insert_one(new_user).inserted_id
-        return {"message": "Accept"}
-    except Exception as e:
-        raise HTTPException(status_code=500 , detail="Error")
+@user.post("/register")
+async def register(user: UserCreate):
+    existing_user = await get_user_by_username(user.username)
+    if existing_user:
+        raise HTTPException(status_code=400, detail="Username already registered")
+    hashed_password = hash_password(user.password)
+    new_user = User(name=user.name, username=user.username, email=user.email, password=hashed_password)
+    user_id = await create_user(new_user)
+    if user_id is None:
+        raise HTTPException(status_code=500, detail="User could not be created")
+    return {"message": "User created successfully", "user_id": user_id}
  
 @user.post("/login")
 async def login(user: UserLogin):
-    db_user = await get_user_by_username(user.username)
-    if not db_user:
+    search = await get_user_by_username(user.username)
+    if not search:
         raise HTTPException(status_code=400, detail="Invalid email or password")
-    if not verify_password(user.password, db_user["password"]):
+    if not verify_password(user.password, search["password"]):
         raise HTTPException(status_code=400, detail="Invalid email or password")
     return {"message": "Login successful"}

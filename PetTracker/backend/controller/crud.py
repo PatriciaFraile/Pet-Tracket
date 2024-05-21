@@ -2,6 +2,9 @@ from pymongo.errors import DuplicateKeyError
 from models.user import User
 from config.database import collection_name
 from bcrypt import hashpw, gensalt, checkpw
+import smtplib
+from email.mime.text import MIMEText
+
 
 async def get_user_by_username(username: str):
     return await collection_name.find_one({"username": username})

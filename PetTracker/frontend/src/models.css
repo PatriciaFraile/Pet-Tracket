@@ -1,0 +1,36 @@
+nav {
+  @apply absolute w-[300px] left-0 inset-y-0;
+}
+.background {
+  @apply absolute w-[300px] left-0 inset-y-0;
+  background: #fff;
+}
+.toggle {
+  @apply cursor-pointer absolute w-[50px] h-[50px] rounded-[50%] border-[none] left-[15px] top-[18px];
+  outline: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  background: transparent;
+}
+ul,
+li {
+  @apply m-0 p-0;
+}
+ul {
+  @apply absolute w-[230px] p-[25px] top-[100px];
+}
+li {
+  @apply flex items-center cursor-pointer mb-5;
+  list-style: none;
+}
+.icon-placeholder {
+  @apply w-10 h-10 flex-[40px_0] mr-5 rounded-[50%];
+}
+.text-placeholder {
+  @apply w-[200px] h-5 flex-1 rounded-[5px];
+}
+.refresh {
+  @apply absolute w-5 h-5 flex justify-center items-center cursor-pointer p-2.5 rounded-[10px] right-2.5 top-2.5;
+  background: rgba(0, 0, 0, 0.4);
+}

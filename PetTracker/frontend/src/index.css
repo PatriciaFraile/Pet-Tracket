@@ -54,7 +54,7 @@ h2 {
   @apply accent-[#e2713c] text-lg;
 }
 button {
-  @apply relative w-full h-10 bg-[#e2713c] shadow-[0_0_10px_#75F566] text-base text-[white] font-medium cursor-pointer rounded-[30px] border-[none];
+  @apply relative w-full h-10 bg-[#e2713c]  text-base text-[white] font-medium cursor-pointer rounded-[30px] border-[none];
 }
 .signUp-link {
   @apply text-sm text-center mx-0 my-[15px];

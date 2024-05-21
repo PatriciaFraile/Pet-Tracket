@@ -13,9 +13,15 @@ class User(BaseModel):
         super().__init__(**data)
         if not self.id:
             self.id = str(uuid.uuid4())
-    
-            
+               
 class UserLogin(BaseModel):
-
     username:str
     password: str
+
+class UserCreate(BaseModel):
+    username: str
+    name: str
+    email: str
+    password: str
+
+
