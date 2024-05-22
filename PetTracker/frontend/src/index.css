@@ -76,17 +76,17 @@ button {
 }
 
 .image-container {
-  position: relative; /* Asegura que los elementos absolutamente posicionados se ubiquen en relación con este contenedor */
+  position: relative;
 }
 
 .image-background {
   position: absolute;
-  width: 500px; /* Ajusta el tamaño del círculo según tus necesidades */
-  height: 500px; /* Ajusta el tamaño del círculo según tus necesidades */
+  width: 500px;
+  height: 500px;
   background-color: white;
-  border-radius: 50%; /* Forma el círculo */
-  top: 45%; /* Ubica el centro del círculo verticalmente */
-  left: 50%; /* Ubica el centro del círculo horizontalmente */
-  transform: translate(-50%, -50%); /* Centra el círculo */
-  z-index: -1; /* Coloca el círculo detrás de la imagen */
+  border-radius: 50%;
+  top: 45%;
+  left: 50%; 
+  transform: translate(-50%, -50%); 
+  z-index: -1;
 }
