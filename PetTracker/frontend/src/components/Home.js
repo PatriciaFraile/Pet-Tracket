@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useRef } from "react";
-import { motion, sync, useCycle } from "framer-motion";
+import { motion, useCycle } from "framer-motion";
 import { useDimensions } from "../models/use-dimensions";
 import { MenuToggle } from "../models/MenuToggle";
 import { Navigation } from "../models/Navigation"
