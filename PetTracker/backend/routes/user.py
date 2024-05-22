@@ -1,9 +1,6 @@
 from fastapi import APIRouter,HTTPException
 from models.user import User , UserLogin, UserCreate
-from controller.crud import hash_password , get_user_by_username,verify_password,create_user,send_reset_email
-from config.database import store_reset_code,collection_name,collection_users
-import datetime
-import bcrypt
+from controller.crud import hash_password , get_user_by_username,verify_password,create_user
 
 user = APIRouter()
 

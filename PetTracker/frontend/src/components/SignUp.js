@@ -27,7 +27,7 @@ const SignUp=()=>{
 
     const addUser = async () => {
         try {
-            const response = await axios.post('http://127.0.0.1:8080/add_user', user);
+            const response = await axios.post('http://127.0.0.1:8080/register', user);
             console.log(response.data);
 
             Swal.fire({

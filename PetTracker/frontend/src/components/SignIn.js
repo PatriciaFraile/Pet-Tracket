@@ -1,6 +1,48 @@
-import React from "react";
+import React, {useState} from "react";
+import Swal from "sweetalert2";
+import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 const SignIn = () => {
+  const [user, setUser] = useState({});
+  const [login, setLogin] = useState(false)
+  const navigate = useNavigate()
+
+  const eventHandle = (e) => {
+    setUser((e1) => ({
+        ...e1,
+        [e.target.id]: e.target.value
+    }));
+
+    if (login) {
+      return navigate("/home")
+    }
+    const loginUser = async () => {
+      try {
+          const response = await axios.post('http://127.0.0.1:8080/login', user);
+          console.log(response.data);
+
+          Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "Usuario añadido",
+              showConfirmButton: false,
+              timer: 2000
+          });
+          setLogin(true) 
+
+      } catch (error) {
+          console.error(error);
+          Swal.fire({
+              position: "center",
+              icon: "error",
+              title: "¡Algo ha ido mal!",
+              showConfirmButton: false,
+              timer: 2000
+          });
+      }
+  };
+
   return (
     <div>
       <center>
@@ -17,11 +59,11 @@ const SignIn = () => {
               <div className="form-wrapper sign-in">
                 <form action="">
                   <div className="input-group">
-                    <input type="text" required />
+                    <input type="text" required onKeyUp={eventHandle} />
                     <label htmlFor="">Usuario</label>
                   </div>
                   <div className="input-group">
-                    <input type="password" required />
+                    <input type="password" required onKeyUp={eventHandle} />
                     <label htmlFor="">Contraseña</label>
                   </div>
                   <div className="remember">
@@ -29,7 +71,7 @@ const SignIn = () => {
                       <input type="checkbox" /><b>Recordar Contraseña</b>
                     </label>
                   </div>
-                  <button type="submit">Iniciar sesión</button>
+                  <button type="submit" onClick={loginUser}>Iniciar sesión</button>
                   <div className="signUp-link">
                     <p>¿No tienes una cuenta?</p>
                     <p><a href="register" className="signUpBtn-link"><b>Regístrate aquí</b></a></p>
@@ -43,5 +85,5 @@ const SignIn = () => {
     </div>
   );
 };
-
+}
 export default SignIn;
