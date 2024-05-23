@@ -6,15 +6,12 @@ import { useNavigate } from "react-router-dom";
 
 const SignUp=()=>{
 
-    const [user, setUser] = useState({});
+    const [users, setUsers] = useState({});
     const [registered, setRegistered] = useState(false)
     const navigate = useNavigate()
 
-
-
-
     const eventHandle = (e) => {
-        setUser((e1) => ({
+        setUsers((e1) => ({
             ...e1,
             [e.target.id]: e.target.value
         }));
@@ -27,7 +24,7 @@ const SignUp=()=>{
 
     const addUser = async () => {
         try {
-            const response = await axios.post('http://127.0.0.1:8080/register', user);
+            const response = await axios.post('http://127.0.0.1:80/register', users);
             console.log(response.data);
 
             Swal.fire({

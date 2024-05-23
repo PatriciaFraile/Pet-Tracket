@@ -13,35 +13,37 @@ const SignIn = () => {
         ...e1,
         [e.target.id]: e.target.value
     }));
+};
+if (login) {
+  return navigate("/home")
+}
+const loginUser = async () => {
+  try {
+      const response = await axios.post('http://127.0.0.1:80/login', user);
+      console.log(response.data);
 
-    if (login) {
-      return navigate("/home")
-    }
-    const loginUser = async () => {
-      try {
-          const response = await axios.post('http://127.0.0.1:8080/login', user);
-          console.log(response.data);
+      Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Usuario añadido",
+          showConfirmButton: false,
+          timer: 2000
+      });
+      setLogin(true)
 
-          Swal.fire({
-              position: "center",
-              icon: "success",
-              title: "Usuario añadido",
-              showConfirmButton: false,
-              timer: 2000
-          });
-          setLogin(true) 
+     
 
-      } catch (error) {
-          console.error(error);
-          Swal.fire({
-              position: "center",
-              icon: "error",
-              title: "¡Algo ha ido mal!",
-              showConfirmButton: false,
-              timer: 2000
-          });
-      }
-  };
+  } catch (error) {
+      console.error(error);
+      Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "¡Algo ha ido mal!",
+          showConfirmButton: false,
+          timer: 2000
+      });
+  }
+};
 
   return (
     <div>
@@ -59,12 +61,12 @@ const SignIn = () => {
               <div className="form-wrapper sign-in">
                 <form action="">
                   <div className="input-group">
-                    <input type="text" required onKeyUp={eventHandle} />
-                    <label htmlFor="">Usuario</label>
+                    <input type="text" id="username" required onKeyUp={eventHandle}/>
+                    <label htmlFor="username">Usuario</label>
                   </div>
                   <div className="input-group">
-                    <input type="password" required onKeyUp={eventHandle} />
-                    <label htmlFor="">Contraseña</label>
+                    <input type="password" id="password" required onKeyUp={eventHandle}/>
+                    <label htmlFor="password">Contraseña</label>
                   </div>
                   <div className="remember">
                     <label htmlFor="">
@@ -85,5 +87,5 @@ const SignIn = () => {
     </div>
   );
 };
-}
+
 export default SignIn;
