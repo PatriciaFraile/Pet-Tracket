@@ -19,7 +19,7 @@ if (login) {
 }
 const loginUser = async () => {
   try {
-      const response = await axios.post('http://127.0.0.1:80/login', user);
+      const response = await axios.post('https://3v3zpv2z-80.uks1.devtunnels.ms/login', user);
       console.log(response.data);
 
       Swal.fire({
@@ -51,7 +51,7 @@ const loginUser = async () => {
         <div className="row mt-5 justify-content-center">
           <div className="col-md-4">
             <div className="image-container">
-              <div className="image-background"></div> {/* Nuevo div para el fondo circular blanco */}
+              <div className="image-background"></div>
               <img src="/images/caraPerroGato.png" alt="Imagen de inicio de sesión" className="imgLogin" />
             </div>
           </div>

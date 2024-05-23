@@ -18,13 +18,13 @@ const SignUp=()=>{
     };
 
     if (registered) {
-        return navigate("/home")
+        return navigate("/login")
       }
 
 
     const addUser = async () => {
         try {
-            const response = await axios.post('http://127.0.0.1:80/register', users);
+            const response = await axios.post('https://3v3zpv2z-80.uks1.devtunnels.ms/register', users);
             console.log(response.data);
 
             Swal.fire({
