@@ -19,7 +19,7 @@ if (login) {
 }
 const loginUser = async () => {
   try {
-      const response = await axios.post('https://3v3zpv2z-80.uks1.devtunnels.ms/login', user);
+      const response = await axios.post('login', user);
       console.log(response.data);
 
       Swal.fire({

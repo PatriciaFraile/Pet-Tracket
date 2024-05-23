@@ -24,7 +24,7 @@ const SignUp=()=>{
 
     const addUser = async () => {
         try {
-            const response = await axios.post('https://3v3zpv2z-80.uks1.devtunnels.ms/register', users);
+            const response = await axios.post('register', users);
             console.log(response.data);
 
             Swal.fire({
