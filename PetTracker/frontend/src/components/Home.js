@@ -4,7 +4,7 @@ import { motion, useCycle } from "framer-motion";
 import { useDimensions } from "../models/use-dimensions";
 import { MenuToggle } from "../models/MenuToggle";
 import { Navigation } from "../models/Navigation"
-import '../models.css';
+
 
 const sidebar = {
   open: (height = 1000) => ({

@@ -3,11 +3,6 @@
 @tailwind utilities;
 
 body{
-  background-image: linear-gradient(
-    rgba(0, 180, 156, 0.5),
-    rgba(0,180,156,0.5)
-  ),url(./img/gatofondo4.jpg);
-  background-size: cover; 
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -26,16 +21,16 @@ code {
   @apply justify-center items-center w-full h-full;
 }
 h2 {
-  @apply text-3xl text-center text-[#ffffff];
+  @apply text-3xl text-center text-[#000000];
 }
 .input-group {
-  @apply relative mx-0 my-[30px] border-b-2 border-b-[#e2713c] border-solid;
+  @apply relative mx-0 my-[30px] border-b-2 border-b-[#00A0B4] border-solid;
 }
 .input-group label {
-  @apply absolute -translate-y-2/4 text-base text-[#fcfcfc] pointer-events-none transition-[0.5s] left-[5px] top-2/4;
+  @apply absolute -translate-y-2/4 text-base text-[#0e0d0d] pointer-events-none transition-[0.5s] left-[5px] top-2/4;
 }
 .input-group input {
-  @apply w-80 h-10 text-base text-[#ffffff] px-[5px] py-0 border-[none];
+  @apply w-80 h-10 text-base text-[#000000] px-[5px] py-0 border-[none];
   background: transparent;
   outline: none;
 }
@@ -50,16 +45,16 @@ h2 {
   @apply text-[#000000] text-lg;
 }
 .remember label input {
-  @apply accent-[#e2713c] text-lg;
+  @apply accent-[#00A0B4] text-lg;
 }
 button {
-  @apply relative w-full h-10 bg-[#e2713c]  text-base text-[white] font-medium cursor-pointer rounded-[30px] border-[none];
+  @apply relative w-full h-10 bg-[#00A0B4]  text-base text-[#000000] font-medium cursor-pointer rounded-[30px] border-[none];
 }
 .signUp-link {
   @apply text-sm text-center mx-0 my-[15px];
 }
 .signUp-link p {
-  @apply text-[white] text-xl;
+  @apply  text-[#000000] text-xl;
 }
 .signUp-link p a {
   @apply text-[#000000] no-underline font-medium hover:underline text-xl;
@@ -69,26 +64,4 @@ button {
   height: calc(100vh -52px);
   border-right: 1px solid black;
 }
-.imgLogin{
-  width: 100%;
-  height: auto;
-}
 
-.image-container {
-  position: relative;
-}
-
-.image-background {
-  position: absolute;
-  width: 350px;
-  height: 350px;
-  background-color: white;
-  border-radius: 50%;
-  top: 45%;
-  left: 50%; 
-  transform: translate(-50%, -50%); 
-  z-index: -1;
-}
-.button-dog{
- background-image: url('../public/images/caraPerroGato.png');
-}

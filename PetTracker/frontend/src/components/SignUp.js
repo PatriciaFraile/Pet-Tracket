@@ -1,11 +1,10 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Swal from "sweetalert2";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import backgroundImage from './imgs/gatofondo4.jpg';
 
-
-const SignUp=()=>{
-
+const SignUp = () => {
     const [users, setUsers] = useState({});
     const [registered, setRegistered] = useState(false)
     const navigate = useNavigate()
@@ -19,8 +18,7 @@ const SignUp=()=>{
 
     if (registered) {
         return navigate("/login")
-      }
-
+    }
 
     const addUser = async () => {
         try {
@@ -36,8 +34,6 @@ const SignUp=()=>{
             });
             setRegistered(true)
 
-           
-
         } catch (error) {
             console.error(error);
             Swal.fire({
@@ -51,8 +47,25 @@ const SignUp=()=>{
     };
 
     return (
-        <div>
-            <center className="shadow-2xl">
+        <div style={{ 
+            display: "flex",
+            height: "100vh"
+            }}>      
+        
+            <div style={{
+                flex: 1,
+                backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 160, 180, 1)), url(${backgroundImage})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center"
+            }} />
+                  <div style={{
+                    flex: 1,
+                    backgroundColor: "white",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center"
+                  }}>
+                                <center className="shadow-2xl">
                 <div className="wrapper mt-5">
                     <h2>Registrarse</h2>
                     <div className="form-wrapper sign-in shadow-2xl">
@@ -79,8 +92,49 @@ const SignUp=()=>{
                     </div>
                 </div>
             </center>
-        </div>
-    );
 
+                  </div>
+        </div>
+        /*
+            <div style={{ 
+      display: "flex",
+      height: "100vh"
+    }}>
+      <div style={{
+        flex: 1,
+        backgroundColor: "white",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center"
+      }}>
+        <div className="wrapper">
+          <h2>Inicio de sesión</h2>
+          <div className="form-wrapper sign-in">
+            <form action="">
+              <div className="input-group">
+                <input type="text" id="username" required onKeyUp={eventHandle}/>
+                <label htmlFor="username">Usuario</label>
+              </div>
+              <div className="input-group">
+                <input type="password" id="password" required onKeyUp={eventHandle}/>
+                <label htmlFor="password">Contraseña</label>
+              </div>
+              <button type="submit" onClick={loginUser}>Iniciar sesión</button>
+              <div className="signUp-link">
+                <p>¿No tienes una cuenta?</p>
+                <p><a href="register" className="signUpBtn-link"><b>Regístrate aquí</b></a></p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div style={{
+        flex: 1,
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 160, 180, 1)), url(${backgroundImage})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center"
+      }} />
+    </div>*/
+    );
 }
-export default SignUp
+export default SignUp;
