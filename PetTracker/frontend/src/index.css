@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
+body{
   background-image: linear-gradient(
     rgba(0, 180, 156, 0.5),
     rgba(0,180,156,0.5)
@@ -15,7 +15,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
@@ -89,4 +88,7 @@ button {
   left: 50%; 
   transform: translate(-50%, -50%); 
   z-index: -1;
+}
+.button-dog{
+ background-image: url('../public/images/caraPerroGato.png');
 }

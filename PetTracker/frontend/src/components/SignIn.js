@@ -2,7 +2,6 @@ import React, {useState} from "react";
 import Swal from "sweetalert2";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
-
 const SignIn = () => {
   const [user, setUser] = useState({});
   const [login, setLogin] = useState(false)
