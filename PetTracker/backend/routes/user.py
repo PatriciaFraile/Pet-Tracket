@@ -1,6 +1,8 @@
 from fastapi import APIRouter,HTTPException
 from models.user import User , UserLogin, UserCreate
-from controller.crud import hash_password , get_user_by_username,verify_password,create_user
+from controller.crud import hash_password , get_user_by_username,verify_password,create_user, create_mascot, get_user_by_id
+from config.database import collection_name
+from models.mascot import CreateMascot,Mascot
 
 user = APIRouter()
 
@@ -24,3 +26,16 @@ async def login(user: UserLogin):
     if not verify_password(user.password, search["password"]):
         raise HTTPException(status_code=400, detail="Invalid email or password")
     return {"message": "Login successful"}
+
+@user.put("/{user_id}/add_mascot")
+async def add_mascot(user_id: str, mascot: CreateMascot):
+    
+    user = await get_user_by_id(user_id)
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    new_mascot = Mascot(type=mascot.type , name = mascot.name, race = mascot.race, eat = mascot.eat ,
+                         year = mascot.year, needs = mascot.needs , vaccine = mascot.vaccine)
+    mascot_id = await create_mascot(user_id,new_mascot)
+    return{"message":"Mascot created successfully","mascot_id":mascot_id}
+
+   
