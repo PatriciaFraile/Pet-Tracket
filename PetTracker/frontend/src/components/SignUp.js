@@ -17,7 +17,7 @@ const SignUp = () => {
     };
 
     if (registered) {
-        return navigate("/login")
+        return navigate("/options")
     }
 
     const addUser = async () => {

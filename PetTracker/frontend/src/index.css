@@ -64,4 +64,28 @@ button {
   height: calc(100vh -52px);
   border-right: 1px solid black;
 }
-
+.button-dog {
+  @apply w-[100px] h-[100px] bg-cover bg-center cursor-pointer transition-transform duration-[0.2s] rounded-[50%] border-[none];
+  outline: none;
+}
+.button-cat {
+  @apply w-[100px] h-[100px] bg-cover bg-center cursor-pointer transition-transform duration-[0.2s] rounded-[50%] border-[none];
+  outline: none;
+}
+.button-dog:active {
+  @apply animate-[bounce_1s];
+}
+.button-cat:active {
+  @apply animate-[bounce_1s];
+}
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-30px);
+  }
+  60% {
+    transform: translateY(-15px);
+  }
+}
