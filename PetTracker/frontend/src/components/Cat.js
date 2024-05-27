@@ -2,7 +2,7 @@ import React from "react";
 
 const Cat = () =>{
     return(
-        <p>Cat</p>
+        <p></p>
 
     );
 }
