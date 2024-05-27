@@ -24,4 +24,11 @@ class UserCreate(BaseModel):
     email: str
     password: str
 
+class ResetPasswordRequest(BaseModel):
+    email: str
+
+class ResetPasswordConfirm(BaseModel):
+    email: str
+    code: str
+    new_password: str
 

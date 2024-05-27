@@ -4,6 +4,7 @@ from models.mascot import Mascot
 from config.database import collection_name
 from bcrypt import hashpw, gensalt, checkpw
 import uuid
+from fastapi import HTTPException
 
 
 async def get_user_by_username(username: str):
@@ -37,3 +38,4 @@ async def create_mascot(user_id, mascot: Mascot):
         return mascot_id
     except Exception as e:
         print(f"Mascot could not be created {e}")
+
