@@ -1,8 +1,10 @@
 from fastapi import APIRouter,HTTPException
 from models.user import User , UserLogin, UserCreate
-from controller.crud import hash_password , get_user_by_username,verify_password,create_user, create_mascot, get_user_by_id
-from config.database import collection_name
+from controller.crud import (hash_password , get_user_by_username,verify_password,create_user, create_mascot, 
+                             get_user_by_id)
 from models.mascot import CreateMascot,Mascot
+
+
 
 user = APIRouter()
 
@@ -38,4 +40,3 @@ async def add_mascot(user_id: str, mascot: CreateMascot):
     mascot_id = await create_mascot(user_id,new_mascot)
     return{"message":"Mascot created successfully","mascot_id":mascot_id}
 
-   
