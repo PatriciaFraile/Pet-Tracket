@@ -1,12 +1,14 @@
 from typing import Optional
-from pydantic import BaseModel
+from pydantic import BaseModel , EmailStr
 import uuid
+from passlib.context import CryptContext
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 class User(BaseModel):
     id: Optional[str] = None
     username: str
     name: str
-    email: str
+    email: EmailStr
     password: str
 
     def __init__(self, **data):
@@ -21,14 +23,6 @@ class UserLogin(BaseModel):
 class UserCreate(BaseModel):
     username: str
     name: str
-    email: str
+    email: EmailStr
     password: str
-
-class ResetPasswordRequest(BaseModel):
-    email: str
-
-class ResetPasswordConfirm(BaseModel):
-    email: str
-    code: str
-    new_password: str
 
