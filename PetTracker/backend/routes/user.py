@@ -37,12 +37,10 @@ async def add_mascot(user_id: str, mascot: CreateMascot):
                          year = mascot.year, needs = mascot.needs , vaccine = mascot.vaccine)
     mascot_id = await create_mascot(user_id,new_mascot)
     return{"message":"Mascot created successfully","mascot_id":mascot_id}
-@user.post("/user/")
-def list(id:SearchUser):
-    result = get_user(id.id)
+@user.post("/user/{user_id}")
+async def list(user_id:str):
+    result = await get_user(user_id)
     return result
-
-
 
 
 

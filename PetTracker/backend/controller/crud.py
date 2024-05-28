@@ -41,19 +41,32 @@ async def create_mascot(user_id, mascot: Mascot):
     except Exception as e:
         print(f"Mascot could not be created {e}")
 
-def get_userDB(id):
+async def get_userDB(id):
     print(id)
     try:
-        result = collection_name.find_one({"id":id})
-        print(result)
+        result = await collection_name.find_one({"id":id})
+        return result
     except Exception as e:
         print(e)
         raise HTTPException(status_code=404, detail="User not found")
-def get_user(id:str):
-    result = get_userDB(id)
-    result_dict = dict(result)
-    json_data = json.loads(json.dumps(result_dict,default=str))
-    return json_data
+async def get_user(id:str):
+    result = await get_userDB(id)
+    data = {"id":"",
+            "username":"",
+            "name":"",
+            "email":"",
+            "mascots":[]
+            }
+    
+    data['id']=result['id']
+    data['username']=result['username']
+    data['name']=result['name']
+    data['email']=result['email']
+    data['mascots']=result['mascots']
+
+    
+
+    return data
 
 
 
