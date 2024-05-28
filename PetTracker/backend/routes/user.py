@@ -1,10 +1,8 @@
 from fastapi import APIRouter,HTTPException
-from models.user import User , UserLogin, UserCreate
+from models.user import User , UserLogin, UserCreate,SearchUser
 from controller.crud import (hash_password , get_user_by_username,verify_password,create_user, create_mascot, 
-                             get_user_by_id)
+                             get_user_by_id , get_user)
 from models.mascot import CreateMascot,Mascot
-
-
 
 user = APIRouter()
 
@@ -39,4 +37,16 @@ async def add_mascot(user_id: str, mascot: CreateMascot):
                          year = mascot.year, needs = mascot.needs , vaccine = mascot.vaccine)
     mascot_id = await create_mascot(user_id,new_mascot)
     return{"message":"Mascot created successfully","mascot_id":mascot_id}
+@user.post("/user/")
+def list(id:SearchUser):
+    result = get_user(id.id)
+    return result
+
+
+
+
+
+    
+
+
 

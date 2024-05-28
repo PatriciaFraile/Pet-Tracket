@@ -4,8 +4,8 @@ from models.mascot import Mascot
 from config.database import collection_name
 from bcrypt import hashpw, gensalt, checkpw
 import uuid
-from passlib.context import CryptContext
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+import json
+from fastapi import HTTPException
 
 
 
@@ -26,7 +26,7 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
     return checkpw(plain_password.encode('utf-8'), hashed_password.encode('utf-8'))
 
 async def get_user_by_id(id: str):
-    return await collection_name.find_one({"id": id})
+    id=  await collection_name.find_one({"id": id})
 
 async def create_mascot(user_id, mascot: Mascot):
     try:
@@ -40,6 +40,22 @@ async def create_mascot(user_id, mascot: Mascot):
         return mascot_id
     except Exception as e:
         print(f"Mascot could not be created {e}")
+
+def get_userDB(id):
+    print(id)
+    try:
+        result = collection_name.find_one({"id":id})
+        print(result)
+    except Exception as e:
+        print(e)
+        raise HTTPException(status_code=404, detail="User not found")
+def get_user(id:str):
+    result = get_userDB(id)
+    result_dict = dict(result)
+    json_data = json.loads(json.dumps(result_dict,default=str))
+    return json_data
+
+
 
 
 

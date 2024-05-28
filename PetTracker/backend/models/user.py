@@ -26,3 +26,6 @@ class UserCreate(BaseModel):
     email: EmailStr
     password: str
 
+class SearchUser(BaseModel):
+    id:str
+
