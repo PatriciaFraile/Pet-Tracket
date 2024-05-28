@@ -4,13 +4,15 @@ from models.mascot import Mascot
 from config.database import collection_name
 from bcrypt import hashpw, gensalt, checkpw
 import uuid
-import json
 from fastapi import HTTPException
 
 
 
 async def get_user_by_username(username: str):
-    return await collection_name.find_one({"username": username})
+    user = await collection_name.find_one({"username": username})
+    if user:
+        user["id"] = str(user["id"])  
+    return user
 
 async def create_user(user: User):
     try:
@@ -26,7 +28,9 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
     return checkpw(plain_password.encode('utf-8'), hashed_password.encode('utf-8'))
 
 async def get_user_by_id(id: str):
-    id=  await collection_name.find_one({"id": id})
+    id = await collection_name.find_one({"id": id})
+    return id
+    
 
 async def create_mascot(user_id, mascot: Mascot):
     try:

@@ -25,16 +25,16 @@ async def login(user: UserLogin):
         raise HTTPException(status_code=400, detail="Invalid email or password")
     if not verify_password(user.password, search["password"]):
         raise HTTPException(status_code=400, detail="Invalid email or password")
-    return {"message": "Login successful"}
+    return {"message": "Login successful", "id": search["id"]}
 
 @user.put("/{user_id}/add_mascot")
 async def add_mascot(user_id: str, mascot: CreateMascot):
-    
+    print(user_id)
     user = await get_user_by_id(user_id)
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
-    new_mascot = Mascot(type=mascot.type , name = mascot.name, race = mascot.race, eat = mascot.eat ,
-                         year = mascot.year, needs = mascot.needs , vaccine = mascot.vaccine)
+    new_mascot = Mascot(type=mascot.type , name = mascot.name, race = mascot.race,
+                         year = mascot.year,weight = mascot.weight, sex = mascot.sex ,vaccine = mascot.vaccine)
     mascot_id = await create_mascot(user_id,new_mascot)
     return{"message":"Mascot created successfully","mascot_id":mascot_id}
 @user.post("/user/{user_id}")

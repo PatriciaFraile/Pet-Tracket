@@ -5,9 +5,9 @@ class Mascot(BaseModel):
     type: str
     name : str
     race: str
-    eat:str
     year:str
-    needs:str
+    weight:str
+    sex:str
     vaccine: str
 
             
@@ -15,7 +15,7 @@ class CreateMascot(BaseModel):
     type: str
     name : str
     race: str
-    eat:str
     year:str
-    needs:str
+    weight:str
+    sex:str
     vaccine: str
