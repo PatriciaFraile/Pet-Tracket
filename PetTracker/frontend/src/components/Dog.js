@@ -1,23 +1,32 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import '../index.css'; 
+
+import '../index.css';
 
 const Dog = () => {
-  
   const navigate = useNavigate();
+
   const [userId, setUserId] = useState(''); // Estado para almacenar el ID de usuario
+
+  useEffect(() => {
+    // Recupera el userId de localStorage
+    const storedUserId = localStorage.getItem('userId');
+    if (storedUserId) {
+      setUserId(storedUserId);
+    }
+  }, []);
+  
   const [form, setForm] = useState({
+    tipo: '',
     perroNombre: '',
     perroRaza: '',
     perroEdad: '',
     perroTamaño: '',
     perroSexo: '',
-    perroVacunaConf: '',
     perroVacunas: ''
   });
-
-
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm({
@@ -26,28 +35,39 @@ const Dog = () => {
     });
   };
 
+  const translate = (funcName) => {
+    return {
+      type:funcName.tipo,
+      name:funcName.perroNombre,
+      race: funcName.perroRaza,
+      year:funcName.perroEdad,
+      weight:funcName.perroTamaño,
+      sex:funcName.perroTamaño,
+      vaccine:funcName.perroVacunas,
+    }
+  };
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if(!userId){
-      console.error('Id del user esta vacio')
-    }
     try {
-      const response = await axios.put(`https://3v3zpv2z-8080.uks1.devtunnels.ms/${userId}/add_mascot`, form); 
-
+      const response = await axios.put(`https://3v3zpv2z-8080.uks1.devtunnels.ms/${userId}/add_mascot`, translate(form), {
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
       if (response.status === 200) {
         console.log('Datos enviados correctamente');
         navigate("/home");
       } else {
-        console.error('Error al enviar los datos'); 
+        console.error('Error al enviar los datos');
       }
     } catch (error) {
       console.error('Error de red:', error);
     }
   };
 
-
   return (
-    <main style={{background: `linear-gradient(rgba(0, 60, 0, 0.75), rgba(0, 160, 180, 1)`,width:'100%', height:'910px',objectFit:'cover',padding:'26px'}}>    
+    <main style={{background: `linear-gradient(rgba(0, 60, 0, 0.75), rgba(0, 160, 180, 1)`, width: '100%', height: '910px', objectFit: 'cover', padding: '26px'}}>
       <div className="containerDog">
         <h1 style={{fontSize: '2.5rem'}} className="title">Formulario de Información sobre tu Perro</h1>
         <form className="form" onSubmit={handleSubmit}>
@@ -114,20 +134,6 @@ const Dog = () => {
             </div>
           </div>
 
-          <div className="form-group">
-            <label className="label">¿Está vacunado?</label>
-            <div className="radio-group">
-              <label className="radio-label">
-                <input className="radio-input" type="radio" name="perroVacunaConf" value="Si" checked={form.perroVacunaConf === 'Si'} onChange={handleChange} />
-                Sí
-              </label>
-              <label className="radio-label">
-                <input className="radio-input" type="radio" name="perroVacunaConf" value="No" checked={form.perroVacunaConf === 'No'} onChange={handleChange} />
-                No
-              </label>
-            </div>
-          </div>
-            
           <div className="form-group">
             <label className="label">Última Vacuna:</label>
             <select className="input" name="perroVacunas" value={form.perroVacunas} onChange={handleChange}>

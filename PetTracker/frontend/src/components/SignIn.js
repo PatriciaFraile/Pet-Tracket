@@ -26,8 +26,11 @@ const SignIn = () => {
     e.preventDefault(); // Evitar el comportamiento por defecto del formulario
     try {
         const response = await axios.post('https://3v3zpv2z-8080.uks1.devtunnels.ms/login', user);
-        console.log(response.data);
 
+        if (response.data.id) {
+          localStorage.setItem('userId',response.data.id)
+        }
+        console.log(response.data.id);
         Swal.fire({
             position: "center",
             icon: "success",
