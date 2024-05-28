@@ -22,7 +22,7 @@ const Options = () => {
             <div className="fondo" style={{
                 position: "absolute",
                 width: "50%",
-                height: "100%",
+                height: "910px",
                 backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 160, 180, 1)), url(${fondoPerro})`,
                 clipPath: "polygon(0 0, 100% 0, 0 100%, 0 100%)", 
                 zIndex: -1,
@@ -32,7 +32,7 @@ const Options = () => {
             <div className="fondo" style={{
                 position: "absolute",
                 width: "50%",
-                height: "100%",
+                height: "910px",
                 backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 160, 180, 1)), url(${fondoGato})`,
                 clipPath: "polygon(0 0, 100% 100%, 100% 50%, 100% 0)", 
                 zIndex: -1,
@@ -49,12 +49,12 @@ const Options = () => {
                 zIndex: 1
             }}>¿De qué mascota dispones?</h1>
             
-            <div className="d-flex justify-content-center" style={{ zIndex: 1, position: "relative", top: "50%" }}>
+            <div className="d-flex justify-content-center" style={{ zIndex: 1, position: "relative", top: "300px" }}>
                 <div className="col">
-                    <button className="button-dog" onClick={botonPerro} style={{ marginLeft:'200px',backgroundImage: `url(${perro})` }}></button>
+                    <button className="button-dog" onClick={botonPerro} style={{ marginLeft:'300px',backgroundImage: `url(${perro})` }}></button>
                 </div>
                 <div className="col">
-                    <button className="button-cat" onClick={botonGato} style={{ marginLeft:'-400px', backgroundImage: `url(${gato})` }}></button>
+                    <button className="button-cat" onClick={botonGato} style={{ marginLeft:'-600px', backgroundImage: `url(${gato})` }}></button>
                 </div>
             </div>
         </div>

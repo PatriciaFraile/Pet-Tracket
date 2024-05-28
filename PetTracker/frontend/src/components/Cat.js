@@ -23,14 +23,14 @@ const Cat = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(form);
-    // Aquí puedes enviar los datos del formulario a tu servidor o API
+    // enviar los datos del formulario a tu bbdd
   };
 
 
   return (
-    <main style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 160, 180, 1)), url(https://images.unsplash.com/photo-1478098711619-5ab0b478d6e6?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTV8fHxlbnwwfHx8fHw%3D)`, width:'100%', height:'100%',objectFit:'cover',padding:'26px'}}>    
+    <main style={{background: `linear-gradient(rgba(0, 60, 0, 0.75), rgba(0, 160, 180, 1)`,width:'100%', height:'910px',objectFit:'cover',padding:'26px'}}>    
         <div className="containerCat">
-        <h1 className="title">Formulario de Información sobre tu gato</h1>
+        <h1 className="title" style={{fontSize: '3rem'}}>Formulario de Información sobre tu gato</h1>
         <form className="form" onSubmit={handleSubmit}>
           <div className="form-group">
             <label className="label">Nombre del Gato:</label>
@@ -41,13 +41,25 @@ const Cat = () => {
             <label className="label">Raza del Gato:</label>
             <select className="input" name="gatoRaza" value={form.gatoRaza} onChange={handleChange}>
                 <option value="">Selecciona una raza</option>
-                <option value="Labrador Retriever">Labrador Retriever</option>
-                <option value="Pastor Alemán">Pastor Alemán</option>
-                <option value="Bulldog">Bulldog</option>
-                <option value="Beagle">Beagle</option>
-                <option value="Poodle">Poodle</option>
-                <option value="Chihuahua">Chihuahua</option>
-                <option value="Otro">Otro</option>
+                <option value="Persa">Persa</option>
+                <option value="Siamés">Siamés</option>
+                <option value="Maine Coon">Maine Coon</option>
+                <option value="Ragdoll">Ragdoll</option>
+                <option value="Bengalí">Bengalí</option>
+                <option value="Esfinge (Sphynx)">Esfinge (Sphynx)</option>
+                <option value="Abisinio">Abisinio</option>
+                <option value="Ruso Azul">Ruso Azul</option>
+                <option value="Scottish Fold">Scottish Fold</option>
+                <option value="Birmano">Birmano</option>
+                <option value="Oriental de pelo corto">Oriental de pelo corto</option>
+                <option value="Devon Rex">Devon Rex</option>
+                <option value="Cornish Rex">Cornish Rex</option>
+                <option value="Noruego del Bosque">Noruego del Bosque</option>
+                <option value="Angora Turco">Angora Turco</option>
+                <option value="Somali">Somali</option>
+                <option value="Chartreux">Chartreux</option>
+                <option value="Manx">Manx</option>
+                <option value="Balinés">Balinés</option>
             </select>
             </div>
 
@@ -55,10 +67,12 @@ const Cat = () => {
             <label className="label">Edad del Gato:</label>
             <select className="input" name="gatoEdad" value={form.gatoEdad} onChange={handleChange}>
                 <option value="">Selecciona una edad</option>
-                <option value="Cachorro">Cachorro (menos de 1 año)</option>
-                <option value="Joven">Joven (1-3 años)</option>
-                <option value="Adulto">Adulto (3-7 años)</option>
-                <option value="Senior">Senior (más de 7 años)</option>
+                <option value="Cachorro">Cachorro (menos de 7 meses)</option>
+                <option value="Joven">Joven (7 meses - 2 años)</option>
+                <option value="Maduro">Maduro (3 - 6 años)</option>
+                <option value="Adulto">Adulto (7 - 10 años)</option>
+                <option value="Mayor">Mayor (11 - 14 años)</option>
+                <option value="Anciano">Anciano (más de 15 años)</option>
             </select>
             </div>
 
@@ -66,10 +80,10 @@ const Cat = () => {
             <label className="label">Tamaño del Gato:</label>
             <select className="input" name="gatoTamaño" value={form.gatoTamaño} onChange={handleChange}>
                 <option value="">Selecciona un tamaño</option>
-                <option value="Pequeño">Pequeño (menos de 10 kg)</option>
-                <option value="Mediano">Mediano (10-25 kg)</option>
-                <option value="Grande">Grande (25-40 kg)</option>
-                <option value="Muy Grande">Muy Grande (más de 40 kg)</option>
+                <option value="Pequeño">Pequeño (menos de 3 kg)</option>
+                <option value="Mediano">Mediano (3 - 6 kg)</option>
+                <option value="Grande">Grande (6 - 9 kg)</option>
+                <option value="Muy Grande">Muy Grande (9 - 11 kg)</option>
             </select>
             </div>
 
@@ -105,9 +119,8 @@ const Cat = () => {
             <label className="label">Ultima Vacuna </label>
             <select className="input" name="gatoVacunas" value={form.gatoVacunas} onChange={handleChange}>
                 <option value="">Selecciona una vacuna</option>
-                <option value="Moquillo">Moquillo</option>
-                <option value="Parvovirosis">Parvovirosis</option>
-                <option value="Hepatitis vírica canina">Hepatitis vírica canina</option>
+                <option value="Trivalente felina">Vacuna trivalente felina</option>
+                <option value="Leucemia felina:">Leucemia felina:</option>
                 <option value="Rabia">Rabia</option>
             </select>
             </div>

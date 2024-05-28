@@ -23,11 +23,11 @@ const Dog = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(form);
-    // Aquí puedes enviar los datos del formulario a tu servidor o API
+    // enviar los datos del formulario a tu bbdd
   };
 
   return (
-    <main style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 160, 180, 1)), url(https://www.webreed.pet/img/website/envoyer-newsletter-elevage.jpg)`, width:'100%', height:'100%',objectFit:'cover',padding:'26px'}}>    
+    <main style={{background: `linear-gradient(rgba(0, 60, 0, 0.75), rgba(0, 160, 180, 1)`,width:'100%', height:'910px',objectFit:'cover',padding:'26px'}}>    
         <div className="containerDog">
         <h1 style={{fontSize: '2.5rem'}} className="title">Formulario de Información sobre tu Perro</h1>
         <form className="form" onSubmit={handleSubmit}>
@@ -55,8 +55,8 @@ const Dog = () => {
             <select className="input" name="perroEdad" value={form.perroEdad} onChange={handleChange}>
                 <option value="">Selecciona una edad</option>
                 <option value="Cachorro">Cachorro (menos de 1 año)</option>
-                <option value="Joven">Joven (1-3 años)</option>
-                <option value="Adulto">Adulto (3-7 años)</option>
+                <option value="Joven">Joven (1 - 3 años)</option>
+                <option value="Adulto">Adulto (3 - 7 años)</option>
                 <option value="Senior">Senior (más de 7 años)</option>
             </select>
             </div>
@@ -66,8 +66,8 @@ const Dog = () => {
             <select className="input" name="perroTamaño" value={form.perroTamaño} onChange={handleChange}>
                 <option value="">Selecciona un tamaño</option>
                 <option value="Pequeño">Pequeño (menos de 10 kg)</option>
-                <option value="Mediano">Mediano (10-25 kg)</option>
-                <option value="Grande">Grande (25-40 kg)</option>
+                <option value="Mediano">Mediano (10 - 25 kg)</option>
+                <option value="Grande">Grande (25 - 40 kg)</option>
                 <option value="Muy Grande">Muy Grande (más de 40 kg)</option>
             </select>
             </div>
