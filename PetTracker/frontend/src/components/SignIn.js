@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import Swal from "sweetalert2";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import backgroundImage from './imgs/perroFondo.jpeg';
 
 const SignIn = () => {
   const [user, setUser] = useState({});
-  const [login, setLogin] = useState(false)
-  const navigate = useNavigate()
+  const [login, setLogin] = useState(false);
+  const navigate = useNavigate();
 
   const eventHandle = (e) => {
     setUser((e1) => ({
@@ -17,12 +19,13 @@ const SignIn = () => {
   };
 
   if (login) {
-    return navigate("/home")
+    return navigate("/home");
   }
 
-  const loginUser = async () => {
+  const loginUser = async (e) => {
+    e.preventDefault(); // Evitar el comportamiento por defecto del formulario
     try {
-        const response = await axios.post('login', user);
+        const response = await axios.post('https://3v3zpv2z-8080.uks1.devtunnels.ms/login', user);
         console.log(response.data);
 
         Swal.fire({
@@ -32,7 +35,7 @@ const SignIn = () => {
             showConfirmButton: false,
             timer: 2000
         });
-        setLogin(true)
+        setLogin(true);
     } catch (error) {
         console.error(error);
         Swal.fire({
@@ -43,6 +46,10 @@ const SignIn = () => {
             timer: 2000
         });
     }
+  };
+
+  const goBack = () => {
+    navigate(-1); // Navega a la página anterior
   };
 
   return (
@@ -60,19 +67,22 @@ const SignIn = () => {
         <div className="wrapper">
           <h2>Inicio de sesión</h2>
           <div className="form-wrapper sign-in">
-            <form action="">
+            <form onSubmit={loginUser}>
               <div className="input-group">
-                <input type="text" id="username" required onKeyUp={eventHandle}/>
+                <input type="text" id="username" required onKeyUp={eventHandle} />
                 <label htmlFor="username">Usuario</label>
               </div>
               <div className="input-group">
-                <input type="password" id="password" required onKeyUp={eventHandle}/>
+                <input type="password" id="password" required onKeyUp={eventHandle} />
                 <label htmlFor="password">Contraseña</label>
               </div>
-              <button type="submit" onClick={loginUser}>Iniciar sesión</button>
+              <button type="submit">Iniciar sesión</button>
               <div className="signUp-link">
                 <p>¿No tienes una cuenta?</p>
                 <p><a href="register" className="signUpBtn-link"><b>Regístrate aquí</b></a></p>
+              </div>
+              <div style={{ display: "flex", justifyContent: "center", marginTop: "10px" }}>
+                <FontAwesomeIcon icon={faArrowLeft} size="2x" style={{ cursor: "pointer" }} onClick={goBack} />
               </div>
             </form>
           </div>

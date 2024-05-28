@@ -134,7 +134,7 @@ button {
   background: rgba(249, 249, 249, 0.5); 
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   border-radius: 10px;
-  position: relative; /* Para asegurarnos de que el fondo esté detrás del contenedor */
+  position: relative; 
   z-index: 1;
 }
 .containerDog::before {
@@ -147,8 +147,8 @@ button {
   background-image: url('https://www.webreed.pet/img/website/envoyer-newsletter-elevage.jpg');
   background-size: cover;
   background-position: center;
-  opacity: 0.3; /* Controla la transparencia del fondo */
-  z-index: -1; /* Asegura que la imagen esté detrás del contenido del contenedor */
+  opacity: 0.3;
+  z-index: -1; 
 }
 
 .title {
@@ -218,10 +218,10 @@ body, html {
   max-width: 600px;
   margin: 50px auto;
   padding: 20px;
-  background: rgba(249, 249, 249, 0.9); /* Fondo semitransparente */
+  background: rgba(249, 249, 249, 0.9); 
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
-  position: relative; /* Para asegurarnos de que el fondo esté detrás del contenedor */
+  position: relative; 
   z-index: 1;
 }
 
@@ -235,8 +235,8 @@ body, html {
   background-image: url('https://images.unsplash.com/photo-1478098711619-5ab0b478d6e6?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTV8fHxlbnwwfHx8fHw%3D');
   background-size: cover;
   background-position: center;
-  opacity: 0.3; /* Controla la transparencia del fondo */
-  z-index: -1; /* Asegura que la imagen esté detrás del contenido del contenedor */
+  opacity: 0.3;
+  z-index: -1;
 }
 
 

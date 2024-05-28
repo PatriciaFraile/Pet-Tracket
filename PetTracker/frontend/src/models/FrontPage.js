@@ -20,7 +20,7 @@ const FrontPage = () => {
             if (index === fullText.length) {
                 clearInterval(interval);
             }
-        }, 25);
+        }, 50);
         return () => clearInterval(interval);
     }, []);
 
@@ -110,7 +110,7 @@ const FrontPage = () => {
             }}>
             <button style={{
                     width: '300px',
-                    height: '75px',
+                    height: '70px',
                     padding: '10px 20px',
                     fontSize: '1.5rem',
                     borderRadius: '100px',

@@ -1,7 +1,13 @@
+'use client'
+
 import React, { useState } from 'react';
+import {useNavigate} from 'react-router-dom'
 import '../index.css'; 
 
 const Cat = () => {
+
+  const navigate = useNavigate()
+
   const [form, setForm] = useState({
     gatoNombre: '',
     gatoRaza: '',
@@ -22,15 +28,29 @@ const Cat = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(form);
     // enviar los datos del formulario a tu bbdd
+    const {gatoNombre, gatoRaza, gatoEdad, gatoTamaño, gatoSexo, gatoVacunaConf, gatoVacunas } = form;
+    if (
+      !gatoNombre ||
+      !gatoRaza ||
+      !gatoEdad ||
+      !gatoTamaño ||
+      !gatoSexo ||
+      !gatoVacunaConf ||
+      !gatoVacunas 
+    ) {
+      window.alert('Por favor rellene todos los cmapos.')
+    } else{
+      console.log(form);
+      navigate('/home')
+    }
   };
 
 
   return (
     <main style={{background: `linear-gradient(rgba(0, 60, 0, 0.75), rgba(0, 160, 180, 1)`,width:'100%', height:'910px',objectFit:'cover',padding:'26px'}}>    
         <div className="containerCat">
-        <h1 className="title" style={{fontSize: '3rem'}}>Formulario de Información sobre tu gato</h1>
+        <h1 className="title" style={{fontSize: '2.5rem'}}>Formulario de Información sobre tu gato</h1>
         <form className="form" onSubmit={handleSubmit}>
           <div className="form-group">
             <label className="label">Nombre del Gato:</label>
@@ -119,6 +139,7 @@ const Cat = () => {
             <label className="label">Ultima Vacuna </label>
             <select className="input" name="gatoVacunas" value={form.gatoVacunas} onChange={handleChange}>
                 <option value="">Selecciona una vacuna</option>
+                <option value="Ninguna">Ninguna</option>
                 <option value="Trivalente felina">Vacuna trivalente felina</option>
                 <option value="Leucemia felina:">Leucemia felina:</option>
                 <option value="Rabia">Rabia</option>

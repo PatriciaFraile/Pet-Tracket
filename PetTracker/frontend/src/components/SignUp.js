@@ -22,7 +22,7 @@ const SignUp = () => {
 
     const addUser = async () => {
         try {
-            const response = await axios.post('register', users);
+            const response = await axios.post('https://3v3zpv2z-8080.uks1.devtunnels.ms/register', users);
             console.log(response.data);
 
             Swal.fire({
@@ -95,46 +95,6 @@ const SignUp = () => {
 
                   </div>
         </div>
-        /*
-            <div style={{ 
-      display: "flex",
-      height: "100vh"
-    }}>
-      <div style={{
-        flex: 1,
-        backgroundColor: "white",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center"
-      }}>
-        <div className="wrapper">
-          <h2>Inicio de sesión</h2>
-          <div className="form-wrapper sign-in">
-            <form action="">
-              <div className="input-group">
-                <input type="text" id="username" required onKeyUp={eventHandle}/>
-                <label htmlFor="username">Usuario</label>
-              </div>
-              <div className="input-group">
-                <input type="password" id="password" required onKeyUp={eventHandle}/>
-                <label htmlFor="password">Contraseña</label>
-              </div>
-              <button type="submit" onClick={loginUser}>Iniciar sesión</button>
-              <div className="signUp-link">
-                <p>¿No tienes una cuenta?</p>
-                <p><a href="register" className="signUpBtn-link"><b>Regístrate aquí</b></a></p>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-      <div style={{
-        flex: 1,
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 160, 180, 1)), url(${backgroundImage})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center"
-      }} />
-    </div>*/
     );
 }
 export default SignUp;
