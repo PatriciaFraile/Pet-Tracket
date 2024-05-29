@@ -12,6 +12,7 @@
     "flowbite-react": "^0.9.0",
     "framer-motion": "^11.2.6",
     "react": "^18.2.0",
+    "react-calendar": "^5.0.0",
     "react-demo": "^2.0.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.2.1",

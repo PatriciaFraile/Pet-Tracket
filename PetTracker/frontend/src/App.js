@@ -11,6 +11,7 @@ import Options from './components/Options';
 import FrontPage from './models/FrontPage';
 
 import { Navigate, Outlet } from 'react-router-dom';
+import Calendar from './components/Calendar';
 
 const PrivateRoute = () => {
     const auth = null; 
@@ -33,7 +34,10 @@ function App() {
         <Route exact path='/register' element={<SignUp/>}/>
         <Route exact path='/login' element={<SignIn/>}/>
         <Route path='/start' element={<FrontPage/>}/>
-          <Route path='/config' element={<Conf/>}/>
+        <Route path='/config' element={<Conf/>}/>
+        <Route path='/calendar' element={<Calendar/>}/>
+
+          
         
       </Routes>
     
