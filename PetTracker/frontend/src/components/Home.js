@@ -50,7 +50,7 @@ const Home = ({ userName }) => {
   const [pets, setPets] = useState([]);
   const [userId, setUserId] = useState('');
 
-  console.log();
+  
 
   useEffect(() => {
     const storedUserId = localStorage.getItem('userId');
@@ -62,29 +62,33 @@ const Home = ({ userName }) => {
   useEffect(() => {
     const fetchPets = async () => {
       try {
-        const response = await axios.post(`https://3v3zpv2z-8080.uks1.devtunnels.ms/user/${userId}`);
-        setPets(response.data); // Assuming response.data is an array of pets
+        const response = await axios.get(`https://3v3zpv2z-8080.uks1.devtunnels.ms/user/${userId}/mascots`);
+        setPets(response.data);
       } catch (error) {
         console.error("Error fetching pets:", error);
       }
     };
 
-    fetchPets();
-  }, []);
+    if (userId) {
+      fetchPets();
+    }
+  }, [userId]);
+
+  console.log(pets);
 
   return (
     <div style={{ backgroundColor: 'grey', minHeight: '100vh', padding: '20px', boxSizing: 'border-box' }}>
       <div style={{ textAlign: 'center', color: 'white', marginBottom: '20px' }}>
-        <h1 style={{fontSize:'2rem'}}>Bienvenido {userName}</h1>
+        <h1 style={{ fontSize: '2rem' }}>Bienvenido {userName}</h1>
       </div>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', justifyContent: 'center' }}>
         {pets.map((pet, index) => (
-          <div 
-            key={index} 
+          <div
+            key={index}
             style={{
               width: '200px',
               height: '200px',
-              backgroundImage: `url(${pet.image})`,
+              backgroundImage: `url(${fotosPerros[pet.race]})`, 
               backgroundSize: 'cover',
               backgroundPosition: 'center',
               display: 'flex',
@@ -96,7 +100,7 @@ const Home = ({ userName }) => {
               textShadow: '0 0 5px rgba(0, 0, 0, 0.7)'
             }}
           >
-            <h2>{pet.name}</h2> 
+            <h2>{pet.name}</h2>
           </div>
         ))}
       </div>

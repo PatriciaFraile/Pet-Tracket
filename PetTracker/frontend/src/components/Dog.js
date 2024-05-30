@@ -38,7 +38,7 @@ const Dog = () => {
     return {
       type: funcName.tipo,
       name: funcName.perroNombre,
-      race: funcName.perroRaza,
+      breed: funcName.perroRaza,
       year: funcName.perroEdad,
       weight: funcName.perroTamaño,
       sex: funcName.perroSexo,
