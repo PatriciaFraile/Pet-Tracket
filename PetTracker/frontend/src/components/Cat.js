@@ -1,14 +1,25 @@
 'use client'
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {useNavigate} from 'react-router-dom'
+import axios from 'axios'
+
 import '../index.css'; 
 
 const Cat = () => {
 
   const navigate = useNavigate()
+  const [userId, setUserId] = useState(''); // Estado para almacenar el ID de usuario
+
+  useEffect(() => {
+    const storedUserId = localStorage.getItem('userId');
+    if (storedUserId) {
+      setUserId(storedUserId);
+    }
+  }, []);
 
   const [form, setForm] = useState({
+    tipo: 'cat',
     gatoNombre: '',
     gatoRaza: '',
     gatoEdad: '',
@@ -26,25 +37,53 @@ const Cat = () => {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // enviar los datos del formulario a tu bbdd
-    const {gatoNombre, gatoRaza, gatoEdad, gatoTamaño, gatoSexo, gatoVacunaConf, gatoVacunas } = form;
-    if (
-      !gatoNombre ||
-      !gatoRaza ||
-      !gatoEdad ||
-      !gatoTamaño ||
-      !gatoSexo ||
-      !gatoVacunaConf ||
-      !gatoVacunas 
-    ) {
-      window.alert('Por favor rellene todos los cmapos.')
-    } else{
-      console.log(form);
-      navigate('/home')
+  const translate = (funcName) => {
+    return {
+      type:funcName.tipo,
+      name:funcName.gatoNombre,
+      race: funcName.gatoRaza,
+      year:funcName.gatoEdad,
+      weight:funcName.gatoTamaño,
+      sex:funcName.gatoTamaño,
+      vaccine:funcName.gatoVacunas,
     }
   };
+
+  const validateForm = () => {
+    const { gatoNombre, gatoRaza, gatoEdad, gatoTamaño, gatoSexo, gatoVacunas } = form;
+    if (!gatoNombre || !gatoRaza || !gatoEdad || !gatoTamaño || !gatoSexo || !gatoVacunas) {
+      alert('Por favor, rellene todos los campos.');
+      return false;
+    }
+    return true;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!validateForm()) return;
+    try {
+      const response = await axios.put(`https://3v3zpv2z-8080.uks1.devtunnels.ms/${userId}/add_mascot`, translate(form), {
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+      if (response.status === 200) {
+        console.log('Datos enviados correctamente');
+        const addAnother = window.confirm('¿Desea añadir otra mascota?');
+        if (addAnother) { 
+          navigate('/options')
+        } else {
+          navigate("/home");
+        }
+      } else {
+        console.error('Error al enviar los datos');
+      }
+    } catch (error) {
+      console.error('Error de red:', error);
+    }
+  };
+
+
 
 
   return (
@@ -117,20 +156,6 @@ const Cat = () => {
                 <label className="radio-label">
                 <input className="radio-input" type="radio" name="gatoSexo" value="Hembra" checked={form.gatoSexo === 'Hembra'} onChange={handleChange} />
                 Hembra
-                </label>
-            </div>
-            </div>
-
-            <div className="form-group">
-            <label className="label">¿Esta vacunado?</label>
-            <div className="radio-group">
-                <label className="radio-label">
-                <input className="radio-input" type="radio" name="gatoVacunaConf" value="Si" checked={form.gatoVacunaConf === 'Si'} onChange={handleChange} />
-                Si
-                </label>
-                <label className="radio-label">
-                <input className="radio-input" type="radio" name="gatoVacunaConf" value="No" checked={form.gatoVacunaConf === 'No'} onChange={handleChange} />
-                No
                 </label>
             </div>
             </div>

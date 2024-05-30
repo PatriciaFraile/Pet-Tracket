@@ -12,7 +12,7 @@ const VaccinationForm = ({ addVaccination }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className='formCalendar' onSubmit={handleSubmit}>
       <div>
         <label>Nombre de la vacuna:</label>
         <input 

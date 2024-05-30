@@ -7,18 +7,17 @@ import '../index.css';
 const Dog = () => {
   const navigate = useNavigate();
 
-  const [userId, setUserId] = useState(''); // Estado para almacenar el ID de usuario
+  const [userId, setUserId] = useState('');
 
   useEffect(() => {
-    // Recupera el userId de localStorage
     const storedUserId = localStorage.getItem('userId');
     if (storedUserId) {
       setUserId(storedUserId);
     }
   }, []);
-  
+
   const [form, setForm] = useState({
-    tipo: '',
+    tipo: 'dog',
     perroNombre: '',
     perroRaza: '',
     perroEdad: '',
@@ -26,7 +25,7 @@ const Dog = () => {
     perroSexo: '',
     perroVacunas: ''
   });
-  
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm({
@@ -37,18 +36,28 @@ const Dog = () => {
 
   const translate = (funcName) => {
     return {
-      type:funcName.tipo,
-      name:funcName.perroNombre,
+      type: funcName.tipo,
+      name: funcName.perroNombre,
       race: funcName.perroRaza,
-      year:funcName.perroEdad,
-      weight:funcName.perroTamaño,
-      sex:funcName.perroTamaño,
-      vaccine:funcName.perroVacunas,
+      year: funcName.perroEdad,
+      weight: funcName.perroTamaño,
+      sex: funcName.perroSexo,
+      vaccine: funcName.perroVacunas,
     }
   };
-  
+
+  const validateForm = () => {
+    const { perroNombre, perroRaza, perroEdad, perroTamaño, perroSexo, perroVacunas } = form;
+    if (!perroNombre || !perroRaza || !perroEdad || !perroTamaño || !perroSexo || !perroVacunas) {
+      alert('Por favor, rellene todos los campos.');
+      return false;
+    }
+    return true;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!validateForm()) return;
     try {
       const response = await axios.put(`https://3v3zpv2z-8080.uks1.devtunnels.ms/${userId}/add_mascot`, translate(form), {
         headers: {
@@ -57,7 +66,20 @@ const Dog = () => {
       });
       if (response.status === 200) {
         console.log('Datos enviados correctamente');
-        navigate("/home");
+        // guarda los fatos del form
+        
+        const storedDogs = JSON.parse(localStorage.getItem('dogs')) || [];
+        storedDogs.push(form);
+        localStorage.setItem('dogs', JSON.stringify(storedDogs));
+
+        console.log(storedDogs);
+
+        const addAnother = window.confirm('¿Desea añadir otra mascota?');
+        if (addAnother) { 
+          navigate('/options');
+        } else {
+          navigate('/home');
+        }
       } else {
         console.error('Error al enviar los datos');
       }
@@ -67,9 +89,9 @@ const Dog = () => {
   };
 
   return (
-    <main style={{background: `linear-gradient(rgba(0, 60, 0, 0.75), rgba(0, 160, 180, 1)`, width: '100%', height: '910px', objectFit: 'cover', padding: '26px'}}>
+    <main style={{ background: `linear-gradient(rgba(0, 60, 0, 0.75), rgba(0, 160, 180, 1)`, width: '100%', height: '910px', objectFit: 'cover', padding: '26px' }}>
       <div className="containerDog">
-        <h1 style={{fontSize: '2.5rem'}} className="title">Formulario de Información sobre tu Perro</h1>
+        <h1 style={{ fontSize: '2.5rem' }} className="title">Formulario de Información sobre tu Perro</h1>
         <form className="form" onSubmit={handleSubmit}>
           <div className="form-group">
             <label className="label">Nombre del Perro:</label>
@@ -83,8 +105,8 @@ const Dog = () => {
               <option value="Labrador Retriever">Labrador Retriever</option>
               <option value="Pastor Alemán">Pastor Alemán</option>
               <option value="Golden Retriever">Golden Retriever</option>
-              <option value="Bulldog Frances">Bulldog Francés</option>
-              <option value="Bulldog Ingles">Bulldog Inglés</option>
+              <option value="Bulldog Francés">Bulldog Francés</option>
+              <option value="Bulldog Inglés">Bulldog Inglés</option>
               <option value="Caniche">Caniche</option>
               <option value="Beagle">Beagle</option>
               <option value="Rottweiler">Rottweiler</option>

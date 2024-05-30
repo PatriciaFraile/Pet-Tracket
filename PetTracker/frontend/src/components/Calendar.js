@@ -14,15 +14,20 @@ const Calendar = () => {
   };
 
   const handleDayClick = (date) => {
-    const vaccination = vaccinations.find(v => new Date(v.date).toDateString() === date.toDateString());
+    const clickedDate = date.toDateString()
+    const vaccination = vaccinations.find(v => new Date(v.date).toDateString() === clickedDate);
     setSelectedVaccination(vaccination || { date, name: 'No hay vacunas programadas para este día.' });
   };
 
   return (
     <div className="App">
-      <h1>Calendario de Vacunación para Mascotas</h1>
-      <div className="button-container">
-        <button onClick={() => setShowForm(!showForm)}>
+      <h1 style={{fontSize:'3rem'}}>Calendario de Vacunación para Mascotas</h1>
+      <div className="button-calendar">
+        <button style={{
+          width: '400px',
+          height: '50px'
+        }}
+         onClick={() => setShowForm(!showForm)}>
           {showForm ? 'Ocultar Formulario' : 'Mostrar Formulario'}
         </button>
       </div>
@@ -36,8 +41,10 @@ const Calendar = () => {
         <div className="vaccination-info">
           <h2>Información de Vacunación</h2>
           <p>{selectedVaccination.name}</p>
-          {selectedVaccination.date && <p>Fecha: {selectedVaccination.date}</p>}
-          <button onClick={() => setSelectedVaccination(null)}>Cerrar</button>
+          {selectedVaccination.date && typeof selectedVaccination.date === 'object' && typeof selectedVaccination.date.toLocaleDateString === 'function' && (
+          <p>Fecha: {selectedVaccination.date.toLocaleDateString()}</p>
+          )}
+          <button id='button-calendario' onClick={() => setSelectedVaccination(null)}>Cerrar</button>
         </div>
       )}
     </div>

@@ -2,18 +2,18 @@
     text-align: center;
   }
   
-  .button-container {
+  .button-calendar {
     margin: 20px;
   }
   
-  button {
+  .button-calendario {
     margin: 10px;
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
   }
   
-  button:focus {
+  .button-calendario:focus {
     outline: none;
   }
   
@@ -39,7 +39,7 @@
   
   .highlight {
     background: #76ff76;
-    border-radius: 50%;
+    border-radius: 70%;
     padding: 5px;
     color: white;
   }
@@ -59,21 +59,21 @@
     right: 0;
   }
   
-  form {
+  .formCalendar {
     margin: 20px;
     padding: 20px;
   }
   
-  form div {
+  .formCalendar div {
     margin-bottom: 15px;
   }
   
-  form label {
+  .formCalendar label {
     display: block;
     margin-bottom: 5px;
   }
   
-  form input {
+  .formCalendar input {
     width: 100%;
     padding: 8px;
     box-sizing: border-box;
@@ -90,13 +90,21 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: white;
+    background: rgba(255, 255, 255, 0.9);
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     z-index: 1000;
+    max-width: 80%;
+  }
+  .vaccination-info p {
+    color: #333; 
+    font-size: 18px;
   }
   
   .vaccination-info button {
     margin-top: 10px;
+    padding: 8px 16px; 
+    font-size: 16px; 
   }
+ 
   
