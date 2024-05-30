@@ -4,7 +4,7 @@ from pydantic import BaseModel
 class Mascot(BaseModel):
     type: str
     name : str
-    race: str
+    breed: str
     year:str
     weight:str
     sex:str
@@ -14,7 +14,7 @@ class Mascot(BaseModel):
 class CreateMascot(BaseModel):
     type: str
     name : str
-    race: str
+    breed: str
     year:str
     weight:str
     sex:str

@@ -33,7 +33,7 @@ async def add_mascot(user_id: str, mascot: CreateMascot):
     user = await get_user_by_id(user_id)
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
-    new_mascot = Mascot(type=mascot.type , name = mascot.name, race = mascot.race,
+    new_mascot = Mascot(type=mascot.type , name = mascot.name, breed = mascot.breed,
                          year = mascot.year,weight = mascot.weight, sex = mascot.sex ,vaccine = mascot.vaccine)
     mascot_id = await create_mascot(user_id,new_mascot)
     return{"message":"Mascot created successfully","mascot_id":mascot_id}
