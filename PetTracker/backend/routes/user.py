@@ -1,8 +1,8 @@
 from fastapi import APIRouter,HTTPException
-from models.user import User , UserLogin, UserCreate,SearchUser
+from models.user import User , UserLogin, UserCreate
 from controller.crud import (hash_password , get_user_by_username,verify_password,create_user, create_mascot, 
-                             get_user_by_id , get_user)
-from models.mascot import CreateMascot,Mascot
+                             get_user_by_id , get_user,update_mascot,get_mascot)
+from models.mascot import CreateMascot,Mascot,UpdateMascotModel
 
 user = APIRouter()
 
@@ -42,8 +42,24 @@ async def list(user_id:str):
     result = await get_user(user_id)
     return result
 
+@user.put("/user/{user_id}/mascot/{mascot_id}")
+async def update_mascots(user_id: str, mascot_id: str, mascot: UpdateMascotModel):
+    try:
+        result = await update_mascot(user_id, mascot_id, mascot)
+        return result
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
 
+@user.get("/user/{id}/mascots")
+async def get_mascots(id: str, sort_by: str = "edad"):
+    mascots = await get_mascot(id)
+    try:
+        sorted_mascots = sorted(mascots, key=lambda x: x.get(sort_by, 0))
+    except Exception as e:
+        print(e)
+        raise HTTPException(status_code=400, detail="Invalid sort key")
 
+    return sorted_mascots
     
 
 

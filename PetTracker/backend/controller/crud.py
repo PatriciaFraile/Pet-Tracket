@@ -1,11 +1,10 @@
 from pymongo.errors import DuplicateKeyError
 from models.user import User
-from models.mascot import Mascot
+from models.mascot import Mascot,UpdateMascotModel
 from config.database import collection_name
 from bcrypt import hashpw, gensalt, checkpw
 import uuid
 from fastapi import HTTPException
-
 
 
 async def get_user_by_username(username: str):
@@ -59,6 +58,7 @@ async def get_user(id:str):
             "username":"",
             "name":"",
             "email":"",
+            "password":"",
             "mascots":[]
             }
     
@@ -66,14 +66,37 @@ async def get_user(id:str):
     data['username']=result['username']
     data['name']=result['name']
     data['email']=result['email']
+    data['password']=result['password']
     data['mascots']=result['mascots']
-
-    
-
     return data
 
 
+async def update_mascot(user_id: str, mascot_id: str, mascot: UpdateMascotModel):
+    
+    user = await collection_name.find_one({"id": user_id})
+    if user is None:
+        raise ValueError("User not found")
 
+    mascots = user.get("mascots", [])
+    updated = False
+
+    for i, m in enumerate(mascots):
+        if m["id"] == mascot_id:
+            mascots[i].update({k: v for k, v in mascot.dict().items() if v is not None})
+            updated = True
+            break
+
+    if not updated:
+        raise ValueError("Mascot not found")
+
+    await collection_name.update_one({"id": user_id}, {"$set": {"mascots": mascots}})
+    return {"msg": "Mascot updated successfully"}
+
+async def get_mascot(id:str):
+    user_data = await get_userDB(id)
+    if 'mascots' not in user_data:
+        raise HTTPException(status_code=404, detail="No pets found for this user")
+    return user_data['mascots']
 
 
 

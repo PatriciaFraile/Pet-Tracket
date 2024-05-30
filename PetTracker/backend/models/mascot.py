@@ -19,3 +19,9 @@ class CreateMascot(BaseModel):
     weight:str
     sex:str
     vaccine: str
+    
+class UpdateMascotModel(BaseModel):
+    name: Optional[str] = None
+    year: Optional[str] = None
+    weight:str
+    vaccine: str
