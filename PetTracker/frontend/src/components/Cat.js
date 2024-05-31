@@ -69,6 +69,10 @@ const Cat = () => {
       });
       if (response.status === 200) {
         console.log('Datos enviados correctamente');
+        const storedCats = JSON.parse(localStorage.getItem('cats')) || []
+        storedCats.push(form)
+        localStorage.setItem('dogs', JSON.stringify(storedCats));
+
         const addAnother = window.confirm('¿Desea añadir otra mascota?');
         if (addAnother) { 
           navigate('/options')

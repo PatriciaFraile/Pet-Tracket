@@ -12,6 +12,7 @@ import FrontPage from './models/FrontPage';
 
 import { Navigate, Outlet } from 'react-router-dom';
 import Calendar from './components/Calendar';
+import Pet from './components/Pet';
 
 const PrivateRoute = () => {
     const auth = null; 
@@ -27,15 +28,17 @@ function App() {
       <Routes>
         <Route exact path='/' element={<PrivateRoute/>}>
         </Route>
-          <Route exact path='/options' element={<Options/>}/>
-          <Route path='/dog' element={<Dog/>}/>
-          <Route path='/cat' element={<Cat/>}/>
-          <Route path='/home' element={<Home/>}/>
+        <Route exact path='/options' element={<Options/>}/>
+        <Route path='/dog' element={<Dog/>}/>
+        <Route path='/cat' element={<Cat/>}/>
+        <Route path='/home' element={<Home/>}/>
         <Route exact path='/register' element={<SignUp/>}/>
         <Route exact path='/login' element={<SignIn/>}/>
         <Route path='/start' element={<FrontPage/>}/>
         <Route path='/config' element={<Conf/>}/>
         <Route path='/calendar' element={<Calendar/>}/>
+        <Route path='/pet' element={<Pet/>}/>
+        <Route path='/pet/:id' element={<Pet/>}/>
 
           
         

@@ -3,6 +3,7 @@ import { motion, useCycle } from "framer-motion";
 import { useDimensions } from "../models/use-dimensions";
 import { MenuToggle } from "../models/MenuToggle";
 import { Navigation } from "../models/Navigation";
+import {useNavigate} from 'react-router-dom'
 import axios from "axios";
 
 const sidebar = {
@@ -25,9 +26,31 @@ const sidebar = {
   }
 };
 
+const fotosGatos = {
+  "Persa" : "",
+  "Siamés" : "",
+  "Maine Coon" : "",
+  "Ragdoll" : "",
+  "Bengalí" : "",
+  "Esfinge (Sphynx)" : "",
+  "Abisinio" : "",
+  "Ruso Azul" : "",
+  "Scottish Fold" : "",
+  "Birmano" : "",
+  "Oriental de pelo corto" : "",
+  "Devon Rex" : "",
+  "Cornish Rex" : "",
+  "Noruego del Bosque" : "",
+  "Angora Turco" : "",
+  "Somali" : "",
+  "Chartreux" : "",
+  "Manx" : "",
+  "Balinés" : ""
+}
+
 const fotosPerros = {
   "Labrador Retriever": "https://th.bing.com/th/id/R.23fdd93f5a9d1337a3309c56c266a811?rik=oMt%2bq9KuT3fGeA&riu=http%3a%2f%2fupload.wikimedia.org%2fwikipedia%2fcommons%2f9%2f90%2fLabrador_Retriever_portrait.jpg&ehk=Kse1knvMWRxxVOGeJ60Jp4w17ydmE%2fZMJ2i9%2bs977DM%3d&risl=&pid=ImgRaw&r=0",
-  "Pastor Alemán": "https://th.bing.com/th/id/R.23fdd93f5a9d1337a3309c56c266a811?rik=oMt%2bq9KuT3fGeA&riu=http%3a%2f%2fupload.wikimedia.org%2fwikipedia%2fcommons%2f9%2f90%2fLabrador_Retriever_portrait.jpg&ehk=Kse1knvMWRxxVOGeJ60Jp4w17ydmE%2fZMJ2i9%2bs977DM%3d&risl=&pid=ImgRaw&r=0",
+  "Pastor Alemán": "https://th.bing.com/th/id/R.ff4f145f9e6fc27d08a6493948a3a1ff?rik=QnBlaSoT2bdgUw&riu=http%3a%2f%2fwww.mundoperro.net%2fwp-content%2fuploads%2fpastor-aleman-adulto.jpg&ehk=78XPzF0dZwh1GTtWaMEe%2fjQUqePSeRviH1EZWQ49rqM%3d&risl=&pid=ImgRaw&r=0",
   "Golden Retriever": "https://th.bing.com/th/id/R.dc2228475042694689cad662983a7476?rik=iQS7HAYckRmzsg&riu=http%3a%2f%2fso-pet.com%2fwp-content%2fuploads%2f2016%2f11%2fpexels-photo-24871.jpg&ehk=E2h8ToG4VYlN4rAesDc%2fA6197GYm4tD2TRlclwyPsHQ%3d&risl=1&pid=ImgRaw&r=0",
   "Bulldog Francés": "https://www.zaunk.com/wp-content/uploads/2020/05/bulldog-frances-fisico-scaled.jpg",
   "Bulldog Inglés": "https://demascotas.info/wp-content/uploads/2018/03/english-bulldog-538485_1280.jpg",
@@ -49,9 +72,9 @@ const Home = ({ userName }) => {
   const { height } = useDimensions(containerRef);
   const [pets, setPets] = useState([]);
   const [userId, setUserId] = useState('');
+  const navigate = useNavigate();
 
-  
-
+  // Obtener el userId del localStorage al cargar el componente
   useEffect(() => {
     const storedUserId = localStorage.getItem('userId');
     if (storedUserId) {
@@ -59,8 +82,10 @@ const Home = ({ userName }) => {
     }
   }, []);
 
+  // Obtener las mascotas del usuario actual
   useEffect(() => {
     const fetchPets = async () => {
+      if (!userId) return; // No hacer nada si no hay userId
       try {
         const response = await axios.get(`https://3v3zpv2z-8080.uks1.devtunnels.ms/user/${userId}/mascots`);
         setPets(response.data);
@@ -69,38 +94,30 @@ const Home = ({ userName }) => {
       }
     };
 
-    if (userId) {
-      fetchPets();
-    }
+    fetchPets();
   }, [userId]);
 
-  console.log(pets);
+  const handlePetClick = (petId,petData) => {
+    localStorage.setItem('selectedPet',JSON.stringify(petData))
+    navigate(`/pet/${petId}`);
+  };
 
   return (
     <div style={{ backgroundColor: 'grey', minHeight: '100vh', padding: '20px', boxSizing: 'border-box' }}>
       <div style={{ textAlign: 'center', color: 'white', marginBottom: '20px' }}>
         <h1 style={{ fontSize: '2rem' }}>Bienvenido {userName}</h1>
       </div>
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', justifyContent: 'center' }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
         {pets.map((pet, index) => (
-          <div
-            key={index}
-            style={{
-              width: '200px',
-              height: '200px',
-              backgroundImage: `url(${fotosPerros[pet.race]})`, 
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              display: 'flex',
-              alignItems: 'flex-end',
-              justifyContent: 'center',
-              color: 'white',
-              padding: '10px',
-              boxSizing: 'border-box',
-              textShadow: '0 0 5px rgba(0, 0, 0, 0.7)'
-            }}
-          >
-            <h2>{pet.name}</h2>
+          <div key={index} style={{ width: '33%', padding: '10px', boxSizing: 'border-box' }}>
+            <div style={{ borderRadius: '10px', overflow: 'hidden', marginBottom: '10px' }}>
+              <a href={`/pet/${pet.id}`} onClick={() => handlePetClick(pet.id)}>
+                <img src={fotosPerros[pet.breed]} alt={pet.name} style={{ width: '100%', borderRadius: '10px 10px 0 0', marginBottom: '5px' }} />
+              </a>
+            </div>
+            <div style={{ backgroundColor: 'white', borderRadius: '0 0 10px 10px', textAlign: 'center' }}>
+              <h2 style={{ marginTop: '0', marginBottom: '5px' }}>{pet.name}</h2>
+            </div>
           </div>
         ))}
       </div>
@@ -112,7 +129,7 @@ const Home = ({ userName }) => {
         style={{ position: 'absolute', top: 0, left: 0, bottom: 0, width: '300px' }}
       >
         <motion.div className="background" variants={sidebar} style={{ backgroundColor: 'white', position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }} />
-        <Navigation />
+        {isOpen && <Navigation />}
         <MenuToggle toggle={() => toggleOpen()} />
       </motion.nav>
     </div>
