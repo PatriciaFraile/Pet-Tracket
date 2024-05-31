@@ -1,7 +1,7 @@
 from fastapi import APIRouter,HTTPException
 from models.user import User , UserLogin, UserCreate
 from controller.crud import (hash_password , get_user_by_username,verify_password,create_user, create_mascot, 
-                             get_user_by_id , get_user,update_mascot,get_mascot)
+                             get_user_by_id , get_user,update_mascot,get_mascot,delete_mascot,get_one_mascot)
 from models.mascot import CreateMascot,Mascot,UpdateMascotModel
 
 user = APIRouter()
@@ -61,6 +61,14 @@ async def get_mascots(id: str, sort_by: str = "edad"):
 
     return sorted_mascots
     
-
-
-
+@user.delete("/user/{user_id}/mascot/{mascot_id}")
+async def delete_mascot_route(user_id:str,mascot_id:str):
+    try:
+        result= await delete_mascot(user_id,mascot_id)
+        return result
+    except ValueError as e:
+        raise HTTPException(status_code=400 , detail= str(e))
+    
+@user.get("/user/{user_id}/mascot/{mascot_id}")
+async def read_mascot(user_id: str, mascot_id: str):
+    return await get_one_mascot(user_id, mascot_id)

@@ -98,5 +98,69 @@ async def get_mascot(id:str):
         raise HTTPException(status_code=404, detail="No pets found for this user")
     return user_data['mascots']
 
+async def delete_mascot(user_id: str, mascot_id: str):
+    user = await collection_name.find_one({"id": user_id})
+    if user is None:
+        raise ValueError("User not found")
+
+    mascots = user.get("mascots", [])
+    updated = False
+
+    new_mascots = [m for m in mascots if m["id"] != mascot_id]
+
+    if len(new_mascots) < len(mascots):
+        updated = True
+
+    if not updated:
+        raise ValueError("Mascot not found")
+
+    await collection_name.update_one({"id": user_id}, {"$set": {"mascots": new_mascots}})
+    return {"msg": "Mascot deleted successfully"}
+
+async def prox_vaccine(user_id:str ,mascot_id:str,new_vaccine:str):
+     user = await collection_name.find_one({"id": user_id})
+     if user is None:
+        raise ValueError("User not found")
+     mascot = user.get("mascots",[])
 
 
+async def mascot_exists(user_id: str, mascot_id: str):
+    user = await collection_name.find_one({"id": user_id})
+    if user is None:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    for pet in user.get("mascots", []):
+        if pet["id"] == mascot_id:
+            return pet
+
+    raise HTTPException(status_code=404, detail="Mascot not found")
+
+    
+async def get_one_mascot(user_id: str, mascot_id: str):
+    pet = await mascot_exists(user_id, mascot_id)
+    if pet is None:
+        raise ValueError("Pet not found")
+    
+    data = {
+        "type": "",
+        "name": "",
+        "breed": "",
+        "year": "",
+        "weight": "",
+        "sex": "",
+        "vaccine": "",
+        "id": ""
+    }
+    data['type']=pet['type']
+    data['name']=pet['name']
+    data['breed']=pet['breed']
+    data['year']=pet['year']
+    data['weight']=pet['weight']
+    data['sex']=pet['sex']
+    data['vaccine']=pet['vaccine']
+    data['id']=pet['id']
+
+
+    
+    
+    return data

@@ -36,12 +36,16 @@ function App() {
         <Route exact path='/login' element={<SignIn/>}/>
         <Route path='/start' element={<FrontPage/>}/>
         <Route path='/config' element={<Conf/>}/>
+<<<<<<< Updated upstream
         <Route path='/calendar' element={<Calendar/>}/>
         <Route path='/pet' element={<Pet/>}/>
         <Route path='/pet/:id' element={<Pet/>}/>
 
           
         
+=======
+        <Route path='/calendar' element={<Calendar/>}/> 
+>>>>>>> Stashed changes
       </Routes>
     
   
