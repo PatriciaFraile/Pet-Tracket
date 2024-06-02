@@ -37,3 +37,4 @@ const VaccinationForm = ({ addVaccination }) => {
 };
 
 export default VaccinationForm;
+

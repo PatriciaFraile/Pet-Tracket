@@ -1,16 +1,17 @@
 from fastapi import APIRouter,HTTPException
 from models.user import User , UserLogin, UserCreate
 from controller.crud import (hash_password , get_user_by_username,verify_password,create_user, create_mascot, 
-                             get_user_by_id , get_user,update_mascot,get_mascot,delete_mascot,get_one_mascot)
+                             get_user_by_id , get_user,update_mascot,get_mascot,delete_mascot,get_one_mascot,delete_user, get_user_by_email, prox_vaccine)
 from models.mascot import CreateMascot,Mascot,UpdateMascotModel
 
 user = APIRouter()
 
 @user.post("/register")
 async def register(user: UserCreate):
-    existing_user = await get_user_by_username(user.username)
-    if existing_user:
-        raise HTTPException(status_code=400, detail="Username already registered")
+    existing_username = await get_user_by_username(user.username)
+    existing_email = await get_user_by_email(user.email)
+    if existing_username or existing_email:
+        raise HTTPException(status_code=400, detail="Already registered")
     hashed_password = hash_password(user.password)
     new_user = User(name=user.name, username=user.username, email=user.email, password=hashed_password)
     user_id = await create_user(new_user)
@@ -59,7 +60,7 @@ async def get_mascots(id: str, sort_by: str = "edad"):
         print(e)
         raise HTTPException(status_code=400, detail="Invalid sort key")
 
-    return sorted_mascots
+    return sorted_mascots 
     
 @user.delete("/user/{user_id}/mascot/{mascot_id}")
 async def delete_mascot_route(user_id:str,mascot_id:str):
@@ -72,3 +73,11 @@ async def delete_mascot_route(user_id:str,mascot_id:str):
 @user.get("/user/{user_id}/mascot/{mascot_id}")
 async def read_mascot(user_id: str, mascot_id: str):
     return await get_one_mascot(user_id, mascot_id)
+
+@user.delete("/user/{user_id}")
+async def delete_user_endpoint(user_id: str):
+    return await delete_user(user_id)
+
+@user.put("/user/{user_id}/mascot/{mascot_id}/vaccine")
+async def update_mascot_vaccine(user_id: str, mascot_id: str, new_vaccine: UpdateMascotModel):
+    return await prox_vaccine(user_id, mascot_id, new_vaccine)

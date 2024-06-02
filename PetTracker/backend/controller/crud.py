@@ -12,6 +12,11 @@ async def get_user_by_username(username: str):
     if user:
         user["id"] = str(user["id"])  
     return user
+async def get_user_by_email(email: str):
+    user = await collection_name.find_one({"email": email})
+    if user:
+        user["id"] = str(user["id"])  
+    return user
 
 async def create_user(user: User):
     try:
@@ -117,11 +122,26 @@ async def delete_mascot(user_id: str, mascot_id: str):
     await collection_name.update_one({"id": user_id}, {"$set": {"mascots": new_mascots}})
     return {"msg": "Mascot deleted successfully"}
 
-async def prox_vaccine(user_id:str ,mascot_id:str,new_vaccine:str):
-     user = await collection_name.find_one({"id": user_id})
-     if user is None:
+
+async def prox_vaccine(user_id: str, mascot_id: str, mascot: UpdateMascotModel):
+   user = await collection_name.find_one({"id": user_id})
+   if user is None:
         raise ValueError("User not found")
-     mascot = user.get("mascots",[])
+
+   mascots = user.get("mascots", [])
+   updated = False
+
+   for i, m in enumerate(mascots):
+        if m["id"] == mascot_id:
+            mascots[i].update({k: v for k, v in mascot.dict().items() if v is not None})
+            updated = True
+            break
+
+   if not updated:
+        raise ValueError("Mascot not found")
+
+   await collection_name.update_one({"id": user_id}, {"$set": {"mascots": mascots}})
+   return {"message": "Vaccine information updated successfully"}
 
 
 async def mascot_exists(user_id: str, mascot_id: str):
@@ -159,8 +179,15 @@ async def get_one_mascot(user_id: str, mascot_id: str):
     data['sex']=pet['sex']
     data['vaccine']=pet['vaccine']
     data['id']=pet['id']
-
-
-    
-    
     return data
+
+async def delete_user(user_id: str):
+    user = await collection_name.find_one({"id": user_id})
+    if user is None:
+        raise HTTPException(status_code=404, detail="User not found")
+    delete_result = await collection_name.delete_one({"id": user_id})
+    
+    if delete_result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    return {"detail": "User deleted successfully"}

@@ -20,12 +20,12 @@ const Pet = () => {
     const fetchPets = async () => {
       if (!userId) return;
       try {
-        const response = await axios.get(`https://3v3zpv2z-8080.uks1.devtunnels.ms/user/${userId}/mascots`);
+        const response = await axios.get(`https://khmc02q3-8080.uks1.devtunnels.ms/user/${userId}/mascots`);
         setPets(response.data);
       } catch (error) {
         console.error("Error fetching pets:", error);
       }
-    };
+    }; 
 
     fetchPets();
   }, [userId]);
@@ -33,7 +33,7 @@ const Pet = () => {
   useEffect(() => {
     const fetchPetDetails = async () => {
       try {
-        const response = await axios.get(`https://3v3zpv2z-8080.uks1.devtunnels.ms/user/${userId}/mascot/${id}`);
+        const response = await axios.get(`https://khmc02q3-8080.uks1.devtunnels.ms/user/${userId}/mascot/${id}`);
         setPets([response.data]);
       } catch (error) {
         console.error('Error fetching pet details:', error);

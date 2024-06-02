@@ -1,0 +1,11 @@
+backend methods:
+/register --> CREATE USER (method : POST)
+/login  ---> LOGIN USER (method : POST)
+/{user_id}/add_mascot --> CREATE PET (method : PUT)
+/user/{user_id} --> GET USER (method : POST)
+/user/{user_id}/mascot/{mascot_id} --> UPDATE PET (method PUT)
+/user/{id}/mascots ---> LIST PET (method : GET)
+/user/{user_id}/mascot/{mascot_id} --> DELETE PET (method : DELETE)
+/user/{user_id}/mascot/{mascot_id} --> GET PET (method : GET)
+/user/{user_id} ---> DELETE USER (method : DELETE)
+/user/{user_id}/mascot/{mascot_id}/vaccine --> UPDATE VACCINE (method : PUT)

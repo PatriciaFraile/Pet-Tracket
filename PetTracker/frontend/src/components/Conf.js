@@ -18,7 +18,7 @@ const UserSettings = () => {
 
   useEffect(() => {
     if (userId) {
-      axios.post(`https://3v3zpv2z-8080.uks1.devtunnels.ms/user/${userId}`)
+      axios.post(`https://khmc02q3-8080.uks1.devtunnels.ms/user/${userId}`)
         .then(response => {
           setUsername(response.data.username);
         })

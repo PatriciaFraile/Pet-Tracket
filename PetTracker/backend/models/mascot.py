@@ -2,7 +2,7 @@ from typing import Optional
 from pydantic import BaseModel
 
 class Mascot(BaseModel):
-    model: str
+    type: str
     name : str
     breed: str
     year:str
@@ -23,5 +23,5 @@ class CreateMascot(BaseModel):
 class UpdateMascotModel(BaseModel):
     name: Optional[str] = None
     year: Optional[str] = None
-    weight:str
-    vaccine: str
+    weight:Optional[str] = None
+    vaccine: Optional[str] = None

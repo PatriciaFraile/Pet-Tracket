@@ -59,14 +59,14 @@ const Dog = () => {
     e.preventDefault();
     if (!validateForm()) return;
     try {
-      const response = await axios.put(`https://3v3zpv2z-8080.uks1.devtunnels.ms/${userId}/add_mascot`, translate(form), {
+      const response = await axios.put(`https://khmc02q3-8080.uks1.devtunnels.ms/${userId}/add_mascot`, translate(form), {
         headers: {
           'Content-Type': 'application/json',
         }
       });
       if (response.status === 200) {
         console.log('Datos enviados correctamente');
-        // guarda los fatos del form
+        // guarda los fatos del form    
         
         const storedDogs = JSON.parse(localStorage.getItem('dogs')) || [];
         storedDogs.push(form);
