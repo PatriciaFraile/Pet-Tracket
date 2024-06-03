@@ -83,10 +83,10 @@ async def delete_user_endpoint(user_id: str):
 async def update_mascot_vaccine(user_id: str, mascot_id: str, new_vaccine: UpdateMascotModel):
     return await prox_vaccine(user_id, mascot_id, new_vaccine)
 
-@user.post("/update_password/{user_id}")
+@user.put("/update_password/{user_id}")
 async def update_password_route(user_id: str, update_password: UpdateUserPassword):
     return await update_user_password(user_id, update_password)
 
-@user.post("/update_username/{user_id}")
+@user.put("/update_username/{user_id}")
 async def update_username_route(user_id: str, update_username: UpdateUserUserName):
-    return await update_user_username(user_id, update_username)
+    return await update_user_username(user_id, update_username) 
