@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import backgroundImage from './imgs/gatofondo4.jpg';
 
 const SignUp = () => {
+    // const {auth} = useAuthContext
     const [users, setUsers] = useState({});
     const [registered, setRegistered] = useState(false)
     const navigate = useNavigate()
@@ -17,12 +18,12 @@ const SignUp = () => {
     };
 
     if (registered) {
-        return navigate("/options")
+        return navigate("/login")
     }
 
     const addUser = async () => {
         try {
-            const response = await axios.post('https://khmc02q3-8080.uks1.devtunnels.ms/register', users);
+            const response = await axios.post('https://3v3zpv2z-8080.uks1.devtunnels.ms/register', users);
             console.log(response.data);
 
             Swal.fire({

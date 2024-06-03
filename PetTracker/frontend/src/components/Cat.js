@@ -41,7 +41,7 @@ const Cat = () => {
     return {
       type:funcName.tipo,
       name:funcName.gatoNombre,
-      race: funcName.gatoRaza,
+      breed: funcName.gatoRaza,
       year:funcName.gatoEdad,
       weight:funcName.gatoTamaño,
       sex:funcName.gatoTamaño,
@@ -62,7 +62,7 @@ const Cat = () => {
     e.preventDefault();
     if (!validateForm()) return;
     try {
-      const response = await axios.put(`https://khmc02q3-8080.uks1.devtunnels.ms/user/${userId}/add_mascot`, translate(form), {
+      const response = await axios.put(`https://3v3zpv2z-8080.uks1.devtunnels.ms/${userId}/add_mascot`, translate(form), {
         headers: {
           'Content-Type': 'application/json',
         }
@@ -71,7 +71,7 @@ const Cat = () => {
         console.log('Datos enviados correctamente');
         const storedCats = JSON.parse(localStorage.getItem('cats')) || []
         storedCats.push(form)
-        localStorage.setItem('dogs', JSON.stringify(storedCats));
+        localStorage.setItem('cats', JSON.stringify(storedCats));
 
         const addAnother = window.confirm('¿Desea añadir otra mascota?');
         if (addAnother) { 

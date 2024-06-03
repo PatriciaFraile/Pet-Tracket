@@ -4,9 +4,20 @@ import axios from 'axios';
 
 const UserSettings = () => {
   const [username, setUsername] = useState('');
+  const [new_username, setNew_username] = useState('');
   const [password, setPassword] = useState('');
+
   const [newPassword, setNewPassword] = useState('');
   const [userId, setUserId] = useState('');
+
+  const [showModalName, setShowModalName] = useState(false);
+  const [showModalPass, setShowModalPass] = useState(false);
+
+  const [newName, setNewName] = useState('');
+  const [newNamePass, setNewNamePass] = useState('');
+
+  const [inputError, setInputError] = useState(false);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -18,7 +29,7 @@ const UserSettings = () => {
 
   useEffect(() => {
     if (userId) {
-      axios.post(`https://khmc02q3-8080.uks1.devtunnels.ms/user/${userId}`)
+      axios.post(`https://3v3zpv2z-8080.uks1.devtunnels.ms/user/${userId}`)
         .then(response => {
           setUsername(response.data.username);
         })
@@ -31,28 +42,34 @@ const UserSettings = () => {
   const handleLogout = () => {
     const cerrar = window.confirm('¿Estás seguro de cerrar sesión?');
     if (cerrar) {
+      localStorage.clear()
       navigate('/');
     }
   };
 
-  // const handleChangeUsername = async () => {
-  //   try {
-  //     const response = await axios.put(`https://3v3zpv2z-8080.uks1.devtunnels.ms/user/${userId}`, {
-  //       username: username,
-  //     }, {
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       }
-  //     });
-  //     if (response.status === 200) {
-  //       console.log('Nombre de usuario cambiado correctamente');
-  //     } else {
-  //       console.error('Error al cambiar el nombre de usuario');
-  //     }
-  //   } catch (error) {
-  //     console.error('Error de red:', error);
-  //   }
-  // };
+  const handleChangeUsername = async () => {
+    if (!newName) {
+      setInputError(true)
+      return;
+    }
+    try {
+      const response = await axios.put(`https://3v3zpv2z-8080.uks1.devtunnels.ms/update_username/${userId}`, 
+      {new_username: newName}, {
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+      if (response.status === 200) {
+        setUsername({...username,new_username:newName})
+        setShowModalName(false)
+        console.log('Nombre de usuario cambiado correctamente');
+      } else {
+        console.error('Error al cambiar el nombre de usuario');
+      }
+    } catch (error) {
+      console.error('Error de red:', error);
+    }
+  };
 
   // const handleChangePassword = async () => {
   //   try {
@@ -73,6 +90,12 @@ const UserSettings = () => {
   //   }
   // };
 
+  const closeModal = () => {
+    setShowModalName(false);
+    setShowModalPass(false);
+    setInputError(false);
+  };
+
   return (
    <main style={{background: `linear-gradient(rgba(0, 60, 0, 0.75), rgba(0, 160, 180, 1)`, width: '100%', height: '910px', objectFit: 'cover', padding: '26px' }}>
     <div style={styles.container} className='user-settings'>
@@ -80,9 +103,38 @@ const UserSettings = () => {
 
       <div style={styles.infoContainer}>
         <label style={styles.label}>Nombre de Usuario: {username}</label>
-        <button style={styles.button} onClick={'handleChangeUsername'}>
+        <button style={styles.button} onClick={() => setShowModalName(true)}>
           Cambiar nombre de Usuario
         </button>
+          {showModalName && (
+          <div>
+            <h3 style={{
+              fontSize: '1.5rem'
+            }}>Cambiar username</h3>
+            <input
+              type="text"
+              value={newName}
+              onChange={(e) => setNewName(e.target.value)}
+              placeholder="Nuevo username"
+              style={{
+                width:'100%',
+                display: 'flex',
+                padding: '10px',
+                margin:'10px auto',
+              }}
+            />
+            {inputError && <p style={{ color: 'red' }}>Por favor, ingresa un username válido.</p>}
+            <button style={{
+              padding: '10px',
+              margin: '5px auto',
+              background: 'rgba(0,160,10,0.75)'                  }} 
+              onClick={handleChangeUsername}>Aceptar</button>
+            <button style={{
+              background:'red',
+              color:'white'
+            }} onClick={closeModal}>Cancelar</button>
+          </div>
+        )}
       </div>
 
       <div style={styles.infoContainer}>

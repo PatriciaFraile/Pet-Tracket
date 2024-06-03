@@ -27,25 +27,25 @@ const sidebar = {
 };
 
 const fotosGatos = {
-  "Persa" : "",
-  "Siamés" : "",
-  "Maine Coon" : "",
-  "Ragdoll" : "",
-  "Bengalí" : "",
-  "Esfinge (Sphynx)" : "",
-  "Abisinio" : "",
-  "Ruso Azul" : "",
-  "Scottish Fold" : "",
-  "Birmano" : "",
-  "Oriental de pelo corto" : "",
-  "Devon Rex" : "",
-  "Cornish Rex" : "",
-  "Noruego del Bosque" : "",
-  "Angora Turco" : "",
-  "Somali" : "",
-  "Chartreux" : "",
-  "Manx" : "",
-  "Balinés" : ""
+  "Persa" : "https://www.zooplus.es/magazine/wp-content/uploads/2017/10/fotolia_103481419.jpg",
+  "Siamés" : "https://www.petlove.com.br/images/breeds/192825/profile/original/siames-p.jpg?1532626975",
+  "Maine Coon" : "https://th.bing.com/th/id/OIP.9AZcAWfMAdID94FLYBZRjgHaFj?rs=1&pid=ImgDetMain",
+  "Ragdoll" : "https://i2.wp.com/felineliving.net/wp-content/uploads/2018/01/ragdoll-kitty-e1522101384737.jpg",
+  "Bengalí" : "https://fthmb.tqn.com/cmuvPP6X5YHIzOT0Kh0PaOQD7oc=/3291x2460/filters:fill(auto,1)/GettyImages-140000553-58bcd5815f9b58af5c040a5a.jpg",
+  "Esfinge (Sphynx)" : "https://www.feelcats.com/wp-content/uploads/2018/05/gato-sphynx-cat.jpg",
+  "Abisinio" : "https://wakyma.com/blog/wp-content/uploads/2017/04/Cuidados-que-necesita-el-gato-abisinio-1024x576.",
+  "Ruso Azul" : "https://www.elmueble.com/medio/2022/10/10/gato-azul-ruso_58999be5_900x900.jpg",
+  "Scottish Fold" : "https://www.thesprucepets.com/thmb/m1b9R0oN-ayAGjnHeht6wiwhXZM=/2997x0/filters:no_upscale():max_bytes(150000):strip_icc()/scottish-fold-profile-551898-03-c7f65038efb04addbb294c59dc062077.JPG",
+  "Birmano" : "https://www.thesprucepets.com/thmb/ZUkCrpXjF3fgRa1uj4vl2Cj1VRI=/3500x2333/filters:fill(auto,1)/GettyImages-623368786-f66c97ad6d2d494287b448415f4340a8.jpg",
+  "Oriental de pelo corto" : "https://wakyma.com/blog/wp-content/uploads/2017/08/C%C3%B3mo-cuidar-a-un-gato-oriental-de-pelo-corto-1024x768.",
+  "Devon Rex" : "https://cdn.shopify.com/s/files/1/0997/4496/articles/Blue_Eyed_Devon_Rex_Cat_d9234955-823a-459d-8b14-fb1340247c0e_5000x.jpg?v=1588962514",
+  "Cornish Rex" : "https://www.thesprucepets.com/thmb/H89DKboa0vYkDfH1GLZm2May70g=/1373x915/filters:fill(auto,1)/GettyImages-1286678957-0af3fa8fa9ae45fcbb7da3a98320b64d.jpg",
+  "Noruego del Bosque" : "https://nfnatcane.es/blog/wp-content/uploads/2020/07/Bosque-de-Noruega.jpg",
+  "Angora Turco" : "https://vidanatural.net/wp-content/uploads/2019/01/angora-turco-blanco-680x675.jpg",
+  "Somali" : "https://www.cattitudedaily.com/wp-content/uploads/2021/02/red-somali-cat-1920x1280.jpg",
+  "Chartreux" : "https://th.bing.com/th/id/OIP.kaNxKMfeGeJ56ctd05dfUAAAAA?rs=1&pid=ImgDetMain",
+  "Manx" : "https://thecatsite.com/ams/manx-cats-what-you-need-to-know-about-the-tailless-cat.33865/cover-image",
+  "Balinés" : "https://blog.mystart.com/wp-content/uploads/shutterstock_705622957-e1524167401234.jpg"
 }
 
 const fotosPerros = {
@@ -87,7 +87,7 @@ const Home = ({ userName }) => {
     const fetchPets = async () => {
       if (!userId) return; // No hacer nada si no hay userId
       try {
-        const response = await axios.get(`https://khmc02q3-8080.uks1.devtunnels.ms/user/${userId}/mascots`);
+        const response = await axios.get(`https://3v3zpv2z-8080.uks1.devtunnels.ms/user/${userId}/mascots`);
         setPets(response.data);
       } catch (error) {
         console.error("Error fetching pets:", error);
@@ -102,20 +102,32 @@ const Home = ({ userName }) => {
     navigate(`/pet/${petId}`);
   };
 
+  const getImagenMascota = (breed) => {
+    if (fotosGatos[breed]) {
+        return fotosGatos[breed]
+    } else if (fotosPerros[breed]) {
+        return fotosPerros[breed]
+    }
+    return null
+  }
+
   return (
-    <div style={{ backgroundColor: 'grey', minHeight: '100vh', padding: '20px', boxSizing: 'border-box' }}>
+    <div style={{ background: `linear-gradient(rgba(0, 60, 0, 0.75), rgba(0, 160, 180, 1)`, minHeight: '100vh', padding: '20px', boxSizing: 'border-box' }}>
       <div style={{ textAlign: 'center', color: 'white', marginBottom: '20px' }}>
-        <h1 style={{ fontSize: '2rem' }}>Bienvenido {userName}</h1>
+        <h1 style={{ fontSize: '2rem' }}>Bienvenido {userId.name}</h1>
       </div>
       <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
         {pets.map((pet, index) => (
           <div key={index} style={{ width: '33%', padding: '10px', boxSizing: 'border-box' }}>
             <div style={{ borderRadius: '10px', overflow: 'hidden', marginBottom: '10px' }}>
               <a href={`/pet/${pet.id}`} onClick={() => handlePetClick(pet.id)}>
-                <img src={fotosPerros[pet.breed]} alt={pet.name} style={{ width: '100%', borderRadius: '10px 10px 0 0', marginBottom: '5px' }} />
+              <img
+                  src={getImagenMascota(pet.breed)}
+                  alt={pet.name}
+                  style={{ width: '300px', height: '300px', borderRadius: '50%', objectFit: 'cover', display: 'block', margin: '0 auto' }}                />
               </a>
             </div>
-            <div style={{ backgroundColor: 'white', borderRadius: '0 0 10px 10px', textAlign: 'center' }}>
+            <div style={{ borderRadius: '0 0 10px 10px', textAlign: 'center' }}>
               <h2 style={{ marginTop: '0', marginBottom: '5px' }}>{pet.name}</h2>
             </div>
           </div>

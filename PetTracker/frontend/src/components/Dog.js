@@ -9,13 +9,7 @@ const Dog = () => {
 
   const [userId, setUserId] = useState('');
 
-  useEffect(() => {
-    const storedUserId = localStorage.getItem('userId');
-    if (storedUserId) {
-      setUserId(storedUserId);
-    }
-  }, []);
-
+  
   const [form, setForm] = useState({
     tipo: 'dog',
     perroNombre: '',
@@ -25,6 +19,16 @@ const Dog = () => {
     perroSexo: '',
     perroVacunas: ''
   });
+  
+  useEffect(() => {
+    const storedUserId = localStorage.getItem('userId');
+    if (storedUserId) {
+      setUserId(storedUserId);
+    } else {
+      alert('No se encontró ningún usuario. Por favor, cree un usuario.');
+      navigate('/create-user'); // Redirige al usuario a una página para crear un nuevo usuario
+    }
+  }, [navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -59,7 +63,7 @@ const Dog = () => {
     e.preventDefault();
     if (!validateForm()) return;
     try {
-      const response = await axios.put(`https://khmc02q3-8080.uks1.devtunnels.ms/${userId}/add_mascot`, translate(form), {
+      const response = await axios.put(`https://3v3zpv2z-8080.uks1.devtunnels.ms/${userId}/add_mascot`, translate(form), {
         headers: {
           'Content-Type': 'application/json',
         }

@@ -20,8 +20,8 @@ const variants = {
 };
 
 const colors = ["#FF008C", "#D309E1", "#9C1AFF", "#7700FF"];
-const labels = ["Mascota","Recetas","Calendario","Configuracion"]
-const routes = ["/pet","recipes","/calendar","/config"]
+const labels = ["Añadir Mascota","Recetas","Calendario","Configuracion"]
+const routes = ["/options","recipes","/calendar","/config"]
 
 export const MenuItem = ({ i }) => {
   const navigate = useNavigate()

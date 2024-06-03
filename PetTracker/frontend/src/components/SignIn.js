@@ -19,13 +19,13 @@ const SignIn = () => {
   };
 
   if (login) {
-    return navigate("/home");
+    return navigate("/options");
   }
 
   const loginUser = async (e) => {
     e.preventDefault(); // Evitar el comportamiento por defecto del formulario
     try {
-        const response = await axios.post('https://khmc02q3-8080.uks1.devtunnels.ms/login', user);
+        const response = await axios.post('https://3v3zpv2z-8080.uks1.devtunnels.ms/login', user);
 
         if (response.data.id) {
           localStorage.setItem('userId',response.data.id)
