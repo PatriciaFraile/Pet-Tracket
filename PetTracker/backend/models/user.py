@@ -26,6 +26,15 @@ class UserCreate(BaseModel):
     email: EmailStr
     password: str
 
-class SearchUser(BaseModel):
+class SearchUser(BaseModel): 
     id:str
+
+class UpdateUserPassword(BaseModel):
+    old_password: str
+    new_password: str
+class UpdateUserUserName(BaseModel):
+    new_username: str
+
+
+
 

@@ -1,7 +1,8 @@
 from fastapi import APIRouter,HTTPException
-from models.user import User , UserLogin, UserCreate
+from models.user import User , UserLogin, UserCreate , UpdateUserPassword,UpdateUserUserName
 from controller.crud import (hash_password , get_user_by_username,verify_password,create_user, create_mascot, 
-                             get_user_by_id , get_user,update_mascot,get_mascot,delete_mascot,get_one_mascot,delete_user, get_user_by_email, prox_vaccine)
+                             get_user_by_id , get_user,update_mascot,get_mascot,delete_mascot,get_one_mascot,delete_user,
+                               get_user_by_email, prox_vaccine,update_user_password , update_user_username)
 from models.mascot import CreateMascot,Mascot,UpdateMascotModel
 
 user = APIRouter()
@@ -81,3 +82,11 @@ async def delete_user_endpoint(user_id: str):
 @user.put("/user/{user_id}/mascot/{mascot_id}/vaccine")
 async def update_mascot_vaccine(user_id: str, mascot_id: str, new_vaccine: UpdateMascotModel):
     return await prox_vaccine(user_id, mascot_id, new_vaccine)
+
+@user.post("/update_password/{user_id}")
+async def update_password_route(user_id: str, update_password: UpdateUserPassword):
+    return await update_user_password(user_id, update_password)
+
+@user.post("/update_username/{user_id}")
+async def update_username_route(user_id: str, update_username: UpdateUserUserName):
+    return await update_user_username(user_id, update_username)

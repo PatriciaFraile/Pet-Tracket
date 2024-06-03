@@ -9,3 +9,5 @@ backend methods:
 /user/{user_id}/mascot/{mascot_id} --> GET PET (method : GET)
 /user/{user_id} ---> DELETE USER (method : DELETE)
 /user/{user_id}/mascot/{mascot_id}/vaccine --> UPDATE VACCINE (method : PUT)
+/update_password/{user_id} --> UPDATE PASSWORD (method : POST) (TIENES QUE PONER LA ANTIGUA Y DESPUES LA NUEVA)
+/update_username/{user_id} --> UPDATE USERNAME (method : POST)

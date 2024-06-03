@@ -1,9 +1,10 @@
 from pymongo.errors import DuplicateKeyError
-from models.user import User
+from models.user import User , UpdateUserPassword , UpdateUserUserName
 from models.mascot import Mascot,UpdateMascotModel
 from config.database import collection_name
 from bcrypt import hashpw, gensalt, checkpw
 import uuid
+import bcrypt
 from fastapi import HTTPException
 
 
@@ -191,3 +192,33 @@ async def delete_user(user_id: str):
         raise HTTPException(status_code=404, detail="User not found")
     
     return {"detail": "User deleted successfully"}
+
+async def update_user_password(user_id: str, update_password: UpdateUserPassword):
+    db_user = await collection_name.find_one({"id": user_id})
+    if not db_user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    if not bcrypt.checkpw(update_password.old_password.encode('utf-8'), db_user['password'].encode('utf-8')):
+        raise HTTPException(status_code=400, detail="Incorrect old password")
+
+    new_hashed_password = bcrypt.hashpw(update_password.new_password.encode('utf-8'), bcrypt.gensalt())
+    await collection_name.update_one(
+        {"id": user_id},
+        {"$set": {"password": new_hashed_password.decode('utf-8')}}
+    )
+    return {"message": "Password updated successfully"}
+
+async def update_user_username(user_id: str, update_username: UpdateUserUserName):
+    db_user = await collection_name.find_one({"id": user_id})
+    if not db_user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    existing_user = await collection_name.find_one({"username": update_username.new_username})
+    if existing_user:
+        raise HTTPException(status_code=400, detail="Username already taken")
+
+    await collection_name.update_one(
+        {"id": user_id},
+        {"$set": {"username": update_username.new_username}}
+    )
+    return {"message": "Username updated successfully"}
