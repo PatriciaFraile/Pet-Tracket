@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import bcrypt from 'bcryptjs-react'
+import bcrypt from "bcryptjs-react";
 
 const UserSettings = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const [currentPassword, setCurrentPassword] = useState(""); 
+  const [currentPassword, setCurrentPassword] = useState("");
   const [userId, setUserId] = useState("");
 
   const [showModalName, setShowModalName] = useState(false);
@@ -79,22 +79,24 @@ const UserSettings = () => {
     }
   };
 
-
   const handleChangePassword = async () => {
     if (!currentPassword || !newPass) {
       setInputError(true);
       return;
     }
     try {
-      const hashedNewPass = await bcrypt.hash(newPass, 10); // Hashear la nueva contraseña
-      const verifyResponse = await axios.put(`https://3v3zpv2z-8080.uks1.devtunnels.ms/update_password/${userId}`, {
-        current_password: currentPassword,
-        new_password: hashedNewPass  // Enviar la contraseña hasheada al servidor
-      }, {
-        headers: {
-          'Content-Type': 'application/json',
+      const verifyResponse = await axios.put(
+        `https://3v3zpv2z-8080.uks1.devtunnels.ms/update_password/${userId}`,
+        {
+          old_password: currentPassword,
+          new_password: newPass, // Enviar la contraseña hasheada al servidor
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
-      });
+      );
       if (verifyResponse.status === 200) {
         // Actualizar la contraseña en el estado local y cerrar el modal
         setPassword(newPass);
@@ -177,7 +179,9 @@ const UserSettings = () => {
         </div>
 
         <div style={styles.infoContainer}>
-          <label style={styles.label}>Contraseña: {password}</label>
+          <label style={styles.label}>
+            Contraseña: {new Array(password.length + 1).join("*")}
+          </label>
           <button style={styles.button} onClick={() => setShowModalPass(true)}>
             Cambiar contraseña
           </button>
@@ -222,7 +226,7 @@ const UserSettings = () => {
                 onClick={handleChangePassword}
               >
                 Aceptar
-              </button>
+              </button> 
               <button
                 style={{
                   background: "red",
