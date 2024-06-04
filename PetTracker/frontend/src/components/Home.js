@@ -129,7 +129,7 @@ const Home = ({ userName }) => {
   return (
     <div style={{ background: `linear-gradient(rgba(0, 60, 0, 0.75), rgba(0, 160, 180, 1)`, minHeight: '100vh', padding: '20px', boxSizing: 'border-box' }}>
       <div style={{ textAlign: 'center', color: 'white', marginBottom: '20px' }}>
-        <h1 style={{ fontSize: '2rem' }}>Bienvenido {username}</h1>
+        <h1 style={{ fontSize: '2rem',paddingLeft: '1500px' }}>Bienvenido {username}</h1>
       </div>
       <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
         {pets.map((pet, index) => (

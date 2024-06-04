@@ -8,7 +8,7 @@ import logo from '../img/logo.png'
 
 const FrontPage = () => {
     const [text, setText] = useState('');
-    const fullText = "Biienvenido a PetTracker,una aplicación que realiza un seguimiento de tu mascota! Para que siempre recuerdes todos sus cuidados y no se te olviden! "
+    const fullText = "Biienvenido a PetTracker,una aplicación que realiza un seguimiento de tu mascota! Para que siempre recuerdes todos sus cuidados y no se te olviden!"
     const navigate = useNavigate()
 
 
