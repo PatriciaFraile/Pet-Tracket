@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import bcrypt from "bcryptjs-react";
 
 const UserSettings = () => {
   const [username, setUsername] = useState("");
@@ -323,6 +322,7 @@ const styles = {
     color: "#fff",
     cursor: "pointer",
     transition: "background 0.3s ease",
+    top: '10PX'
   },
 };
 

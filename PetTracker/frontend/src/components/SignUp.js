@@ -70,7 +70,7 @@ const SignUp = () => {
                     justifyContent: "center",
                     alignItems: "center"
                   }}>
-                                <center className="shadow-2xl">
+            <center className="shadow-2xl">
                 <div className="wrapper mt-5">
                     <h2>Registrarse</h2>
                     <div className="form-wrapper sign-in shadow-2xl">

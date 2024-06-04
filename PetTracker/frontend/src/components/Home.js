@@ -70,17 +70,26 @@ const Home = ({ userName }) => {
   const [isOpen, toggleOpen] = useCycle(false, true);
   const containerRef = useRef(null);
   const { height } = useDimensions(containerRef);
+
   const [pets, setPets] = useState([]);
   const [userId, setUserId] = useState('');
+  const [username, setUsername] = useState("");
+
   const navigate = useNavigate();
 
   // Obtener el userId del localStorage al cargar el componente
-  useEffect(() => {
-    const storedUserId = localStorage.getItem('userId');
-    if (storedUserId) {
-      setUserId(storedUserId);
+ useEffect(() => {
+    if (userId) {
+      axios
+        .post(`https://3v3zpv2z-8080.uks1.devtunnels.ms/user/${userId}`)
+        .then((response) => {
+          setUsername(response.data.username);
+        })
+        .catch((error) => {
+          console.error("Error al obtener los datos del usuario:", error);
+        });
     }
-  }, []);
+  }, [userId]);
 
   // Obtener las mascotas del usuario actual
   useEffect(() => {
@@ -114,7 +123,7 @@ const Home = ({ userName }) => {
   return (
     <div style={{ background: `linear-gradient(rgba(0, 60, 0, 0.75), rgba(0, 160, 180, 1)`, minHeight: '100vh', padding: '20px', boxSizing: 'border-box' }}>
       <div style={{ textAlign: 'center', color: 'white', marginBottom: '20px' }}>
-        <h1 style={{ fontSize: '2rem' }}>Bienvenido {userId.name}</h1>
+        <h1 style={{ fontSize: '2rem' }}>Bienvenido {username}</h1>
       </div>
       <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
         {pets.map((pet, index) => (
