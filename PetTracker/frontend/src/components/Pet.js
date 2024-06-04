@@ -249,18 +249,30 @@ import axios from 'axios';
                   <h3 style={{
                     fontSize: '1.5rem'
                   }}>Cambiar tamaño de la mascota</h3>
-                  <input
-                    type="text"
-                    value={newWeight}
-                    onChange={(e) => setNewWeight(e.target.value)}
-                    placeholder="Nuevo tamaño"
+                     <select value={newWeight} placeholder='Nuevo tamaño' onChange={(e) => setNewWeight(e.target.value)} 
                     style={{
                       width:'100%',
                       display: 'flex',
                       padding: '10px',
-                      margin:'10px auto',
-                    }}
-                  />
+                      margin:'10px auto'
+                    }}>
+                    <option value="">Selecciona un tamaño</option>
+                    {pet.type === 'dog' ? (
+                      <>
+                      <option value="Pequeño">Pequeño (menos de 10 kg)</option>
+                      <option value="Mediano">Mediano (10 - 25 kg)</option>
+                      <option value="Grande">Grande (25 - 40 kg)</option>
+                      <option value="Muy Grande">Muy Grande (más de 40 kg)</option>
+                      </>
+                    ) : (
+                      <>
+                      <option value="Pequeño">Pequeño (menos de 3 kg)</option>
+                      <option value="Mediano">Mediano (3 - 6 kg)</option>
+                      <option value="Grande">Grande (6 - 9 kg)</option>
+                      <option value="Muy Grande">Muy Grande (9 - 11 kg)</option>
+                      </>
+                    )}
+                    </select>
                   {inputError && <p style={{ color: 'red' }}>Por favor, ingresa un tamaño válido.</p>}
                   <button style={{
                     padding: '10px',
@@ -283,18 +295,32 @@ import axios from 'axios';
                   <h3 style={{
                     fontSize: '1.5rem'
                   }}>Cambiar edad de la mascota</h3>
-                  <input
-                    type="number"
-                    value={newAge}
-                    onChange={(e) => setNewAge(e.target.value)}
-                    placeholder="Nueva edad"
+                    <select value={newAge} placeholder='Nueva edad' onChange={(e) => setNewAge(e.target.value)} 
                     style={{
                       width:'100%',
                       display: 'flex',
                       padding: '10px',
                       margin:'10px auto'
-                    }}
-                  />
+                    }}>
+                      <option value="">Selecciona una edad</option>
+                    {pet.type === 'dog' ? (
+                      <>
+                      <option value="Cachorro">Cachorro (menos de 1 año)</option>
+                      <option value="Joven">Joven (1 - 3 años)</option>
+                      <option value="Adulto">Adulto (3 - 7 años)</option>
+                      <option value="Senior">Senior (más de 7 años)</option>
+                      </>
+                    ) : (
+                      <>
+                        <option value="Cachorro">Cachorro (menos de 7 meses)</option>
+                        <option value="Joven">Joven (7 meses - 2 años)</option>
+                        <option value="Maduro">Maduro (3 - 6 años)</option>
+                        <option value="Adulto">Adulto (7 - 10 años)</option>
+                        <option value="Mayor">Mayor (11 - 14 años)</option>
+                        <option value="Anciano">Anciano (más de 15 años)</option>
+                      </>
+                    )}
+                    </select>
                   {inputError && <p style={{ color: 'red' }}>Por favor, ingresa una edad válida.</p>}
                   <button style={{
                     padding: '10px',
