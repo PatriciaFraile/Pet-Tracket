@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
@@ -9,45 +9,72 @@ import backgroundImage from './imgs/perroFondo.jpeg';
 const SignIn = () => {
   const [user, setUser] = useState({});
   const [login, setLogin] = useState(false);
+  const [userId, setUserId] = useState('');
+  const [pets, setPets] = useState([]);
   const navigate = useNavigate();
 
   const eventHandle = (e) => {
-    setUser((e1) => ({
-        ...e1,
-        [e.target.id]: e.target.value
+    setUser((prevUser) => ({
+      ...prevUser,
+      [e.target.id]: e.target.value
     }));
   };
 
-  if (login) {
-    return navigate("/options");
-  }
+  useEffect(() => {
+    const storedUserId = localStorage.getItem('userId');
+    if (storedUserId) {
+      setUserId(storedUserId);
+    }
+  }, []);
+
+  useEffect(() => {
+    const fetchPets = async () => {
+      if (!userId) return; // No hacer nada si no hay userId
+      try {
+        const response = await axios.get(`https://3v3zpv2z-8080.uks1.devtunnels.ms/user/${userId}/mascots`);
+        setPets(response.data);
+        if (response.data.length > 0) {
+          navigate("/home");
+        } else {
+          navigate("/options");
+        }
+      } catch (error) {
+        navigate("/options");
+        console.error("Error fetching pets:", error);
+      }
+    };
+
+    if (login) {
+      fetchPets();
+    }
+  }, [userId, login, navigate]);
 
   const loginUser = async (e) => {
     e.preventDefault(); // Evitar el comportamiento por defecto del formulario
     try {
-        const response = await axios.post('https://3v3zpv2z-8080.uks1.devtunnels.ms/login', user);
+      const response = await axios.post('https://3v3zpv2z-8080.uks1.devtunnels.ms/login', user);
 
-        if (response.data.id) {
-          localStorage.setItem('userId',response.data.id)
-        }
-        console.log(response.data.id);
-        Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "Entrando",
-            showConfirmButton: false,
-            timer: 2000
-        });
+      if (response.data.id) {
+        localStorage.setItem('userId', response.data.id);
+        setUserId(response.data.id);
         setLogin(true);
-    } catch (error) {
-        console.error(error);
         Swal.fire({
-            position: "center",
-            icon: "error",
-            title: "¡Algo ha ido mal!",
-            showConfirmButton: false,
-            timer: 2000
+          position: "center",
+          icon: "success",
+          title: "Entrando",
+          showConfirmButton: false,
+          timer: 2000
         });
+      }
+    } catch (error) {
+      console.error(error);
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "¡Algo ha ido mal!",
+        showConfirmButton: false,
+        timer: 2000
+      });
     }
   };
 

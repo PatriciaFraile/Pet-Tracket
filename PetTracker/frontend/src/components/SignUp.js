@@ -47,6 +47,10 @@ const SignUp = () => {
         }
     };
 
+    const tenerCuenta = () => {
+        navigate('/login')
+    }
+
     return (
         <div style={{ 
             display: "flex",
@@ -70,7 +74,9 @@ const SignUp = () => {
                 <div className="wrapper mt-5">
                     <h2>Registrarse</h2>
                     <div className="form-wrapper sign-in shadow-2xl">
-                        <form>
+                        <form style={{
+                            maxHeight: '400px'
+                        }}>
                             <div className="input-group">
                                 <input type="text" id="name" required onKeyUp={eventHandle} />
                                 <label htmlFor="name">Nombre</label>
@@ -89,6 +95,12 @@ const SignUp = () => {
                             </div>
 
                             <button type="button" onClick={addUser}>Registrarse</button>
+                            <div>
+                                <h3>¿Ya tienes una cuenta?</h3>
+                                <button  onClick={tenerCuenta} style={{
+                                    maxWidth: '200px'
+                                }}>Iniciar Sesión</button>
+                            </div>
                         </form>
                     </div>
                 </div>

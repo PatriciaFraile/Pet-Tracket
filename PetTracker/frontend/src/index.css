@@ -15,7 +15,7 @@ code {
     monospace;
 }
 .wrapper {
-  @apply relative w-[400px] h-[470px] shadow-[0_0_10px_#000000] p-10 rounded-[20px];
+  @apply relative w-[400px] h-[520px] shadow-[0_0_10px_#000000] p-10 rounded-[20px];
 }
 .form-wrapper {
   @apply justify-center items-center w-full h-full;

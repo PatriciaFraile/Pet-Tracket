@@ -21,17 +21,17 @@ const variants = {
 
 const colors = ["#FF008C", "#D309E1", "#9C1AFF", "#7700FF"];
 const labels = ["Añadir Mascota","Recetas","Calendario","Configuracion"]
-const routes = ["/options","recipes","/calendar","/config"]
+const routes = ["/options","/chat","/calendar","/config"]
 
 export const MenuItem = ({ i }) => {
   const navigate = useNavigate()
   const style = { 
-    border: `2px solid ${colors[i]}`, 
+    border: `2px solid ${colors[i]}`,
+    with: '200px', 
     padding: '10px', 
     display: 'flex', 
     alignItems: 'center',
     justifyContent: 'center',
-
   };  
   
   const label = labels[i]

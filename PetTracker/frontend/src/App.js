@@ -27,7 +27,9 @@ function App() {
   return (
     
       <Routes>
+
         <Route exact path='/' element={<PrivateRoute/>}>
+        </Route>
         <Route exact path='/options' element={<Options/>}/>
         <Route path='/dog' element={<Dog/>}/>
         <Route path='/cat' element={<Cat/>}/>
@@ -38,8 +40,6 @@ function App() {
         <Route path='/pet/:id' element={<Pet/>}/>
         <Route path='/chat' element={<Chat/>}/>
         <Route path='/calendar' element={<Calendar/>}/> 
-
-        </Route>
        
         <Route exact path='/register' element={<SignUp/>}/>
         <Route exact path='/login' element={<SignIn/>}/>

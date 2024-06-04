@@ -1,27 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import bcrypt from 'bcryptjs-react'
 
 const UserSettings = () => {
-  const [username, setUsername] = useState('');
-  const [new_username, setNew_username] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
-  const [newPassword, setNewPassword] = useState('');
-  const [userId, setUserId] = useState('');
+  const [currentPassword, setCurrentPassword] = useState(""); 
+  const [userId, setUserId] = useState("");
 
   const [showModalName, setShowModalName] = useState(false);
   const [showModalPass, setShowModalPass] = useState(false);
 
-  const [newName, setNewName] = useState('');
-  const [newNamePass, setNewNamePass] = useState('');
+  const [newName, setNewName] = useState("");
+  const [newPass, setNewPass] = useState("");
 
   const [inputError, setInputError] = useState(false);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    const storedUserId = localStorage.getItem('userId');
+    const storedUserId = localStorage.getItem("userId");
     if (storedUserId) {
       setUserId(storedUserId);
     }
@@ -29,66 +29,85 @@ const UserSettings = () => {
 
   useEffect(() => {
     if (userId) {
-      axios.post(`https://3v3zpv2z-8080.uks1.devtunnels.ms/user/${userId}`)
-        .then(response => {
+      axios
+        .post(`https://3v3zpv2z-8080.uks1.devtunnels.ms/user/${userId}`)
+        .then((response) => {
           setUsername(response.data.username);
         })
-        .catch(error => {
-          console.error('Error al obtener los datos del usuario:', error);
+        .catch((error) => {
+          console.error("Error al obtener los datos del usuario:", error);
         });
     }
   }, [userId]);
 
   const handleLogout = () => {
-    const cerrar = window.confirm('¿Estás seguro de cerrar sesión?');
+    const cerrar = window.confirm("¿Estás seguro de cerrar sesión?");
     if (cerrar) {
-      localStorage.clear()
-      navigate('/');
+      localStorage.clear();
+      navigate("/");
     }
+  };
+
+  const handleVolver = () => {
+    navigate("/home");
   };
 
   const handleChangeUsername = async () => {
     if (!newName) {
-      setInputError(true)
+      setInputError(true);
       return;
     }
     try {
-      const response = await axios.put(`https://3v3zpv2z-8080.uks1.devtunnels.ms/update_username/${userId}`, 
-      {new_username: newName}, {
+      const response = await axios.put(
+        `https://3v3zpv2z-8080.uks1.devtunnels.ms/update_username/${userId}`,
+        { new_username: newName },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (response.status === 200) {
+        setUsername(newName);
+        setShowModalName(false);
+        console.log("Nombre de usuario cambiado correctamente");
+      } else {
+        console.error("Error al cambiar el nombre de usuario");
+      }
+    } catch (error) {
+      console.error("Error de red:", error);
+    }
+  };
+
+
+  const handleChangePassword = async () => {
+    if (!currentPassword || !newPass) {
+      setInputError(true);
+      return;
+    }
+    try {
+      const hashedNewPass = await bcrypt.hash(newPass, 10); // Hashear la nueva contraseña
+      const verifyResponse = await axios.put(`https://3v3zpv2z-8080.uks1.devtunnels.ms/update_password/${userId}`, {
+        current_password: currentPassword,
+        new_password: hashedNewPass  // Enviar la contraseña hasheada al servidor
+      }, {
         headers: {
           'Content-Type': 'application/json',
         }
       });
-      if (response.status === 200) {
-        setUsername({...username,new_username:newName})
-        setShowModalName(false)
-        console.log('Nombre de usuario cambiado correctamente');
+      if (verifyResponse.status === 200) {
+        // Actualizar la contraseña en el estado local y cerrar el modal
+        setPassword(newPass);
+        setShowModalPass(false);
+        console.log("Contraseña cambiada correctamente");
       } else {
-        console.error('Error al cambiar el nombre de usuario');
+        console.error("Error al cambiar la contraseña");
       }
     } catch (error) {
-      console.error('Error de red:', error);
+      console.error("Error de red:", error);
+      setInputError(true); // Indicar error en la entrada
     }
   };
-
-  // const handleChangePassword = async () => {
-  //   try {
-  //     const response = await axios.put(`https://3v3zpv2z-8080.uks1.devtunnels.ms/user/${userId}`, {
-  //       password: newPassword,
-  //     }, {
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       }
-  //     });
-  //     if (response.status === 200) {
-  //       console.log('Contraseña cambiada correctamente');
-  //     } else {
-  //       console.error('Error al cambiar la contraseña');
-  //     }
-  //   } catch (error) {
-  //     console.error('Error de red:', error);
-  //   }
-  // };
 
   const closeModal = () => {
     setShowModalName(false);
@@ -97,129 +116,209 @@ const UserSettings = () => {
   };
 
   return (
-   <main style={{background: `linear-gradient(rgba(0, 60, 0, 0.75), rgba(0, 160, 180, 1)`, width: '100%', height: '910px', objectFit: 'cover', padding: '26px' }}>
-    <div style={styles.container} className='user-settings'>
-      <h2 style={styles.header}>Configuración de Usuario</h2>
+    <main
+      style={{
+        background: `linear-gradient(rgba(0, 60, 0, 0.75), rgba(0, 160, 180, 1)`,
+        width: "100%",
+        height: "910px",
+        objectFit: "cover",
+        padding: "26px",
+      }}
+    >
+      <div style={styles.container} className="user-settings">
+        <h2 style={styles.header}>Configuración de Usuario</h2>
 
-      <div style={styles.infoContainer}>
-        <label style={styles.label}>Nombre de Usuario: {username}</label>
-        <button style={styles.button} onClick={() => setShowModalName(true)}>
-          Cambiar nombre de Usuario
-        </button>
+        <div style={styles.infoContainer}>
+          <label style={styles.label}>Nombre de Usuario: {username}</label>
+          <button style={styles.button} onClick={() => setShowModalName(true)}>
+            Cambiar nombre de Usuario
+          </button>
           {showModalName && (
-          <div>
-            <h3 style={{
-              fontSize: '1.5rem'
-            }}>Cambiar username</h3>
-            <input
-              type="text"
-              value={newName}
-              onChange={(e) => setNewName(e.target.value)}
-              placeholder="Nuevo username"
-              style={{
-                width:'100%',
-                display: 'flex',
-                padding: '10px',
-                margin:'10px auto',
-              }}
-            />
-            {inputError && <p style={{ color: 'red' }}>Por favor, ingresa un username válido.</p>}
-            <button style={{
-              padding: '10px',
-              margin: '5px auto',
-              background: 'rgba(0,160,10,0.75)'                  }} 
-              onClick={handleChangeUsername}>Aceptar</button>
-            <button style={{
-              background:'red',
-              color:'white'
-            }} onClick={closeModal}>Cancelar</button>
-          </div>
-        )}
-      </div>
+            <div>
+              <h3 style={{ fontSize: "1.5rem" }}>Cambiar username</h3>
+              <input
+                type="text"
+                value={newName}
+                onChange={(e) => setNewName(e.target.value)}
+                placeholder="Nuevo username"
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  padding: "10px",
+                  margin: "10px auto",
+                }}
+              />
+              {inputError && (
+                <p style={{ color: "red" }}>
+                  Por favor, ingresa un username válido.
+                </p>
+              )}
+              <button
+                style={{
+                  padding: "10px",
+                  margin: "5px auto",
+                  background: "rgba(0,160,10,0.75)",
+                }}
+                onClick={handleChangeUsername}
+              >
+                Aceptar
+              </button>
+              <button
+                style={{
+                  background: "red",
+                  color: "white",
+                }}
+                onClick={closeModal}
+              >
+                Cancelar
+              </button>
+            </div>
+          )}
+        </div>
 
-      <div style={styles.infoContainer}>
-        <label style={styles.label}>Contraseña: ********</label>
-        <input
-          type="password"
-          value={newPassword}
-          onChange={(e) => setNewPassword(e.target.value)}
-          placeholder="Nueva contraseña"
-          style={styles.input}
-        />
-        <button style={styles.button} onClick={'handleChangePassword'}>
-          Cambiar Contraseña
+        <div style={styles.infoContainer}>
+          <label style={styles.label}>Contraseña: {password}</label>
+          <button style={styles.button} onClick={() => setShowModalPass(true)}>
+            Cambiar contraseña
+          </button>
+          {showModalPass && (
+            <div>
+              <h3 style={{ fontSize: "1.5rem" }}>Cambiar contraseña</h3>
+              <input
+                type="password"
+                value={currentPassword}
+                onChange={(e) => setCurrentPassword(e.target.value)}
+                placeholder="Contraseña actual"
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  padding: "10px",
+                  margin: "10px auto",
+                }}
+              />
+              <input
+                type="password"
+                value={newPass}
+                onChange={(e) => setNewPass(e.target.value)}
+                placeholder="Nueva contraseña"
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  padding: "10px",
+                  margin: "10px auto",
+                }}
+              />
+              {inputError && (
+                <p style={{ color: "red" }}>
+                  Por favor, ingresa una contraseña válida.
+                </p>
+              )}
+              <button
+                style={{
+                  padding: "10px",
+                  margin: "5px auto",
+                  background: "rgba(0,160,10,0.75)",
+                }}
+                onClick={handleChangePassword}
+              >
+                Aceptar
+              </button>
+              <button
+                style={{
+                  background: "red",
+                  color: "white",
+                }}
+                onClick={closeModal}
+              >
+                Cancelar
+              </button>
+            </div>
+          )}
+        </div>
+
+        <button style={styles.logoutButton} onClick={handleLogout}>
+          Cerrar Sesión
+        </button>
+
+        <button style={styles.volverButton} onClick={handleVolver}>
+          Volver
         </button>
       </div>
-
-      <button style={styles.logoutButton} onClick={handleLogout}>
-        Cerrar Sesión
-      </button>
-    </div>
     </main>
-  
   );
 };
 
 const styles = {
   container: {
     flex: 1,
-    backgroundColor: 'white',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    padding: '20px',
-    with: '90%',
-    maxWidth: '600px',
-    margin: '0 auto',
-    boxShadow: '0 4px 8px rgba(10,10,10,0.5)',
-    borderRadius: '40px'
-    
+    backgroundColor: "white",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    padding: "20px",
+    width: "90%",
+    maxWidth: "600px",
+    margin: "0 auto",
+    boxShadow: "0 4px 8px rgba(10,10,10,0.5)",
+    borderRadius: "40px",
   },
   header: {
-    fontSize: '2rem',
-    marginBottom: '20px',
+    fontSize: "2rem",
+    marginBottom: "20px",
   },
   infoContainer: {
-    marginBottom: '20px',
-    width: '100%',
-    maxWidth: '400px',
+    marginBottom: "20px",
+    width: "100%",
+    maxWidth: "400px",
   },
   label: {
-    display: 'block',
-    fontSize: '1rem',
-    marginBottom: '8px',
-    color: '#333',
+    display: "block",
+    fontSize: "1rem",
+    marginBottom: "8px",
+    color: "#333",
   },
   input: {
-    width: '100%',
-    padding: '10px',
-    fontSize: '1rem',
-    borderRadius: '5px',
-    border: '1px solid #ccc',
-    marginBottom: '10px',
+    width: "100%",
+    padding: "10px",
+    fontSize: "1rem",
+    borderRadius: "5px",
+    border: "1px solid #ccc",
+    marginBottom: "10px",
   },
   button: {
-    width: '100%',
-    padding: '10px',
-    fontSize: '1rem',
-    borderRadius: '5px',
-    border: 'none',
-    backgroundColor: '#00A0B4',
-    color: '#fff',
-    cursor: 'pointer',
-    transition: 'background 0.3s ease',
+    width: "100%",
+    padding: "10px",
+    fontSize: "1rem",
+    borderRadius: "5px",
+    border: "none",
+    backgroundColor: "#00A0B4",
+    color: "#fff",
+    cursor: "pointer",
+    transition: "background 0.3s ease",
   },
   logoutButton: {
-    width: '100%',
-    maxWidth: '400px',
-    padding: '10px',
-    fontSize: '1rem',
-    borderRadius: '5px',
-    border: 'none',
-    backgroundColor: 'red',
-    color: '#fff',
-    cursor: 'pointer',
-    transition: 'background 0.3s ease',
+    width: "100%",
+    maxWidth: "400px",
+    padding: "10px",
+    fontSize: "1rem",
+    borderRadius: "5px",
+    border: "none",
+    backgroundColor: "red",
+    color: "#fff",
+    cursor: "pointer",
+    transition: "background 0.3s ease",
+  },
+  volverButton: {
+    width: "100%",
+    maxWidth: "100px",
+    padding: "10px",
+    fontSize: "1rem",
+    borderRadius: "5px",
+    border: "none",
+    backgroundColor: "red",
+    color: "#fff",
+    cursor: "pointer",
+    transition: "background 0.3s ease",
   },
 };
 
