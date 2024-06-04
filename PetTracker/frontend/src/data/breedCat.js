@@ -54,17 +54,6 @@ const catCareInfo = {
       "ordenes": "Ven, No, Sube, Baja",
       "caracteristicas": "Gatos dóciles y afectuosos. Son excelentes compañeros de hogar y se llevan bien con niños y otros animales."
     },
-    "británico de pelo corto": {
-      "alimentacion": {
-        "cachorro": "Un cachorro de británico de pelo corto debe comer tres veces al día con una porción total de 50 gramos de pienso al día",
-        "adulto": "Un británico de pelo corto adulto debe ser alimentado dos veces al día con 70 gramos de pienso diario",
-        "senior": "Un británico de pelo corto senior debe ser alimentado dos veces al día con 60 gramos de pienso diario"
-      },
-      "cuidados": "Requieren cepillado semanal para mantener su pelaje en buenas condiciones. Chequeos veterinarios regulares son importantes.",
-      "adiestramiento": "El adiestramiento debe incluir el uso de la caja de arena y comandos básicos.",
-      "ordenes": "Ven, No, Sube, Baja",
-      "caracteristicas": "Gatos tranquilos y equilibrados. Son buenos compañeros de hogar y se adaptan bien a la vida en apartamento."
-    },
     "sphynx": {
       "alimentacion": {
         "cachorro": "Un cachorro de sphynx debe comer tres veces al día con una porción total de 60 gramos de pienso al día",
@@ -109,17 +98,6 @@ const catCareInfo = {
       "ordenes": "Ven, No, Sube, Baja",
       "caracteristicas": "Gatos activos y sociables. Son muy vocales y disfrutan de la compañía de sus dueños."
     },
-    "siames": {
-      "alimentacion": {
-        "cachorro": "Un cachorro de siamés debe comer tres veces al día con una porción total de 50 gramos de pienso al día",
-        "adulto": "Un siamés adulto debe ser alimentado dos veces al día con 70 gramos de pienso diario",
-        "senior": "Un siamés senior debe ser alimentado dos veces al día con 60 gramos de pienso diario"
-      },
-      "cuidados": "Requieren cepillado regular y chequeos veterinarios frecuentes. Son propensos a problemas dentales, por lo que se debe prestar atención a su higiene oral.",
-      "adiestramiento": "El adiestramiento debe incluir el uso de la caja de arena y comandos básicos.",
-      "ordenes": "Ven, No, Sube, Baja",
-      "caracteristicas": "Gatos inteligentes y vocales. Les gusta interactuar con sus dueños y son muy leales."
-    }
-  };
+  };/*FALTAN GATOS*/
   
   export default catCareInfo;
