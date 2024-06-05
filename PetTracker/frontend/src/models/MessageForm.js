@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../css/Chat.css'
 
 function MessageForm({ onSendMessage }) {
   const [text, setText] = useState('');

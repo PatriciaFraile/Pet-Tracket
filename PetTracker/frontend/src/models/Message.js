@@ -1,4 +1,5 @@
 import React from 'react';
+import '../css/Chat.css'
 
 function Message({ sender, text }) {
   return (

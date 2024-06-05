@@ -1,11 +1,13 @@
 from pymongo.errors import DuplicateKeyError
 from models.user import User , UpdateUserPassword , UpdateUserUserName
-from models.mascot import Mascot,UpdateMascotModel
+from models.mascot import Mascot,UpdateMascotModel,VaccinationModel
 from config.database import collection_name
 from bcrypt import hashpw, gensalt, checkpw
 import uuid
 import bcrypt
 from fastapi import HTTPException
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
+import datetime
 
 
 async def get_user_by_username(username: str):
@@ -124,27 +126,54 @@ async def delete_mascot(user_id: str, mascot_id: str):
     return {"msg": "Mascot deleted successfully"}
 
 
-async def prox_vaccine(user_id: str, mascot_id: str, mascot: UpdateMascotModel):
-   user = await collection_name.find_one({"id": user_id})
-   if user is None:
-        raise ValueError("User not found")
+async def prox_vaccine(user_id: str, mascot_id: str, new_vaccine: VaccinationModel):
+    try:
+        user = await collection_name.find_one({"id": user_id})
+        if not user:
+            raise ValueError("User not found")
 
-   mascots = user.get("mascots", [])
-   updated = False
+        mascots = user.get("mascots", [])
+        updated = False
 
-   for i, m in enumerate(mascots):
-        if m["id"] == mascot_id:
-            mascots[i].update({k: v for k, v in mascot.dict().items() if v is not None})
-            updated = True
-            break
+        for mascot in mascots:
+            if mascot["id"] == mascot_id:
+                if "vaccine" not in mascot:
+                    mascot["vaccine"] = []
+                mascot["vaccine"].append(new_vaccine.dict())
+                updated = True
+                break
 
-   if not updated:
-        raise ValueError("Mascot not found")
+        if not updated:
+            raise ValueError("Mascot not found")
 
-   await collection_name.update_one({"id": user_id}, {"$set": {"mascots": mascots}})
-   return {"message": "Vaccine information updated successfully"}
+        await collection_name.update_one({"id": user_id}, {"$set": {"mascots": mascots}})
+        return {"message": "Vaccination added successfully"}
+    except Exception as e:
+        print(f"Vaccination could not be added: {e}")
+        return {"error": str(e)}
 
+async def update_vaccines():
+    users = await collection_name.find().to_list(length=None)
+    today = datetime.datetime.now().date()
 
+    for user in users:
+        mascots = user.get("mascots", [])
+        updated = False
+
+        for mascot in mascots:
+            for vaccination in mascot.get("vaccine", []):
+                vaccination_date = datetime.datetime.strptime(vaccination["date"], "%Y-%m-%d").date()
+                if vaccination_date == today:
+                    vaccination["status"] = "completed"  # Update the status to completed or any other relevant update
+                    updated = True
+
+        if updated:
+            await collection_name.update_one({"id": user["id"]}, {"$set": {"mascots": mascots}})
+
+# Scheduler setup
+scheduler = AsyncIOScheduler()
+scheduler.add_job(update_vaccines, 'interval', days=1)
+scheduler.start()
 async def mascot_exists(user_id: str, mascot_id: str):
     user = await collection_name.find_one({"id": user_id})
     if user is None:
@@ -193,7 +222,7 @@ async def delete_user(user_id: str):
     
     return {"detail": "User deleted successfully"}
 
-async def update_user_password(user_id: str, update_password: UpdateUserPassword):
+async def update_password(user_id: str, update_password: UpdateUserPassword):
     db_user = await collection_name.find_one({"id": user_id})
     if not db_user:
         raise HTTPException(status_code=404, detail="User not found")
@@ -208,7 +237,7 @@ async def update_user_password(user_id: str, update_password: UpdateUserPassword
     )
     return {"message": "Password updated successfully"}
 
-async def update_user_username(user_id: str, update_username: UpdateUserUserName):
+async def update_username(user_id: str, update_username: UpdateUserUserName):
     db_user = await collection_name.find_one({"id": user_id})
     if not db_user:
         raise HTTPException(status_code=404, detail="User not found")

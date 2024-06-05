@@ -3,7 +3,7 @@ import {useParams} from 'react-router-dom'
 import {useNavigate} from 'react-router-dom'
 import axios from 'axios';
 
-  const fotosGatos = {
+  const photosCat = {
     "Persa" : "https://www.zooplus.es/magazine/wp-content/uploads/2017/10/fotolia_103481419.jpg",
     "Siamés" : "https://www.petlove.com.br/images/breeds/192825/profile/original/siames-p.jpg?1532626975",
     "Maine Coon" : "https://th.bing.com/th/id/OIP.9AZcAWfMAdID94FLYBZRjgHaFj?rs=1&pid=ImgDetMain",
@@ -25,7 +25,7 @@ import axios from 'axios';
     "Balinés" : "https://blog.mystart.com/wp-content/uploads/shutterstock_705622957-e1524167401234.jpg"
   }
   
-  const fotosPerros = {
+  const photosDog = {
     "Labrador Retriever": "https://th.bing.com/th/id/R.23fdd93f5a9d1337a3309c56c266a811?rik=oMt%2bq9KuT3fGeA&riu=http%3a%2f%2fupload.wikimedia.org%2fwikipedia%2fcommons%2f9%2f90%2fLabrador_Retriever_portrait.jpg&ehk=Kse1knvMWRxxVOGeJ60Jp4w17ydmE%2fZMJ2i9%2bs977DM%3d&risl=&pid=ImgRaw&r=0",
     "Pastor Alemán": "https://th.bing.com/th/id/R.ff4f145f9e6fc27d08a6493948a3a1ff?rik=QnBlaSoT2bdgUw&riu=http%3a%2f%2fwww.mundoperro.net%2fwp-content%2fuploads%2fpastor-aleman-adulto.jpg&ehk=78XPzF0dZwh1GTtWaMEe%2fjQUqePSeRviH1EZWQ49rqM%3d&risl=&pid=ImgRaw&r=0",
     "Golden Retriever": "https://th.bing.com/th/id/R.dc2228475042694689cad662983a7476?rik=iQS7HAYckRmzsg&riu=http%3a%2f%2fso-pet.com%2fwp-content%2fuploads%2f2016%2f11%2fpexels-photo-24871.jpg&ehk=E2h8ToG4VYlN4rAesDc%2fA6197GYm4tD2TRlclwyPsHQ%3d&risl=1&pid=ImgRaw&r=0",
@@ -80,7 +80,7 @@ import axios from 'axios';
       };
   
       fetchPetDetails();
-    }, [userId, id]); // Aquí estamos dependiendo de userId e id
+    }, [userId, id]); 
   
   
     if (!pet || !userId) {
@@ -88,16 +88,16 @@ import axios from 'axios';
     }
   
     const getPetImage = (breed) => {
-      if (fotosGatos[breed]) {
-        return fotosGatos[breed];
-      } else if (fotosPerros[breed]) {
-        return fotosPerros[breed];
+      if (photosCat[breed]) {
+        return photosCat[breed];
+      } else if (photosDog[breed]) {
+        return photosDog[breed];
       }
       return null;
     };
   
     
-  const eliminarMascota = async () => {
+  const deletePet = async () => {
     try {
       const response = await axios.delete(
         `https://3v3zpv2z-8080.uks1.devtunnels.ms/user/${userId}/mascot/${id}`
@@ -188,7 +188,7 @@ import axios from 'axios';
       setInputError(false);
     };
 
-    const botonVolver = () => {
+    const buttonReturn = () => {
       navigate('/home');
     };
 
@@ -337,7 +337,7 @@ import axios from 'axios';
           </div>
   
             <div>
-            <button onClick={botonVolver} style={styles.logoutButton}>
+            <button onClick={buttonReturn} style={styles.logoutButton}>
             Volver
           </button>
           <button style={{
@@ -346,7 +346,7 @@ import axios from 'axios';
             padding: '10px',
             margin: '10px auto',
             marginLeft: '200px'
-          }} onClick={eliminarMascota}>Eliminar Mascota</button>
+          }} onClick={deletePet}>Eliminar Mascota</button>
             </div>
         </div>
       </main>

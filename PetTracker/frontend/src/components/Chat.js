@@ -3,6 +3,8 @@ import MessageForm from '../models/MessageForm';
 import MessageList from '../models/MessageList';
 import dogCareInfo from '../data/breedDog';
 import catCareInfo from '../data/breedCat';
+import '../css/Chat.css'
+
 
 function Chat() {
   const [messages, setMessages] = useState([]);
@@ -40,7 +42,7 @@ function Chat() {
   
     const catBreeds = {
       'persa': 'persa',
-      'siames': 'siames',
+      'siames': 'siamés',
       'maine': 'maine coon',
       'bengali': 'bengalí',
       'ragdoll': 'ragdoll',
@@ -48,8 +50,19 @@ function Chat() {
       'sphynx': 'sphynx',
       'abisinio': 'abisinio',
       'birmano': 'birmano',
-      'oriental': 'oriental'
+      'oriental': 'oriental de pelo corto',
+      'ruso': 'ruso azul',
+      'scottish': 'scottish fold',
+      'devon': 'devon rex',
+      'cornish': 'cornish rex',
+      'noruego': 'noruego del bosque',
+      'angora': 'angora turco',
+      'somali': 'somalí',
+      'chartreux': 'chartreux',
+      'manx': 'manx',
+      'balines': 'balinés'
     };
+    
   
     const breed = isDog ? Object.keys(dogBreeds).find(b => words.includes(b)) :
                   isCat ? Object.keys(catBreeds).find(b => words.includes(b)) : null;
@@ -63,7 +76,11 @@ function Chat() {
     const year = words.includes('cachorro') ? 'cachorro' :
                  words.includes('junior') ? 'junior' :
                  words.includes('adulto') ? 'adulto' :
-                 words.includes('senior') ? 'senior' : null;
+                 words.includes('senior') ? 'senior' :
+                 words.includes('gatito')? 'gatito':
+                 words.includes('adulto')? 'adulto':
+                 words.includes('mayor')? 'mayor':
+                  null;
   
     const careInfo = isDog ? dogCareInfo : isCat ? catCareInfo : null;
   
@@ -86,12 +103,13 @@ function Chat() {
   
 
   return (
-    <div className='chat'>
+    <div className='chat' style={{background: `linear-gradient(rgba(0, 60, 0, 0.75), rgba(0, 160, 180, 1)`, minHeight: '100vh', padding: '50px', boxSizing: 'border-box' }}>
     <div className="chat-container">
-      <MessageList messages={messages} />
-      <MessageForm onSendMessage={handleSendMessage} />
+        <h1 className="chat-title">Pet Chat</h1>
+        <MessageList messages={messages} />
+        <MessageForm onSendMessage={handleSendMessage} />
     </div>
-    </div>
+</div>
     
   );
 }

@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import backgroundImage from './imgs/gatofondo4.jpg';
 
 const SignUp = () => {
-    // const {auth} = useAuthContext
     const [users, setUsers] = useState({});
     const [registered, setRegistered] = useState(false)
     const navigate = useNavigate()
@@ -47,7 +46,7 @@ const SignUp = () => {
         }
     };
 
-    const tenerCuenta = () => {
+    const account = () => {
         navigate('/login')
     }
 
@@ -97,7 +96,7 @@ const SignUp = () => {
                             <button type="button" onClick={addUser}>Registrarse</button>
                             <div>
                                 <h3>¿Ya tienes una cuenta?</h3>
-                                <button  onClick={tenerCuenta} style={{
+                                <button  onClick={account} style={{
                                     maxWidth: '200px'
                                 }}>Iniciar Sesión</button>
                             </div>

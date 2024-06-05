@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, useCycle } from "framer-motion";
-import { useDimensions } from "../models/use-dimensions";
+import { useDimensions } from "../models/UseDimensions";
 import { MenuToggle } from "../models/MenuToggle";
 import { Navigation } from "../models/Navigation";
 import {useNavigate} from 'react-router-dom'
@@ -26,7 +26,7 @@ const sidebar = {
   }
 };
 
-const fotosGatos = {
+const photosCat = {
   "Persa" : "https://www.zooplus.es/magazine/wp-content/uploads/2017/10/fotolia_103481419.jpg",
   "Siamés" : "https://www.petlove.com.br/images/breeds/192825/profile/original/siames-p.jpg?1532626975",
   "Maine Coon" : "https://th.bing.com/th/id/OIP.9AZcAWfMAdID94FLYBZRjgHaFj?rs=1&pid=ImgDetMain",
@@ -48,7 +48,7 @@ const fotosGatos = {
   "Balinés" : "https://blog.mystart.com/wp-content/uploads/shutterstock_705622957-e1524167401234.jpg"
 }
 
-const fotosPerros = {
+const photosDog = {
   "Labrador Retriever": "https://th.bing.com/th/id/R.23fdd93f5a9d1337a3309c56c266a811?rik=oMt%2bq9KuT3fGeA&riu=http%3a%2f%2fupload.wikimedia.org%2fwikipedia%2fcommons%2f9%2f90%2fLabrador_Retriever_portrait.jpg&ehk=Kse1knvMWRxxVOGeJ60Jp4w17ydmE%2fZMJ2i9%2bs977DM%3d&risl=&pid=ImgRaw&r=0",
   "Pastor Alemán": "https://th.bing.com/th/id/R.ff4f145f9e6fc27d08a6493948a3a1ff?rik=QnBlaSoT2bdgUw&riu=http%3a%2f%2fwww.mundoperro.net%2fwp-content%2fuploads%2fpastor-aleman-adulto.jpg&ehk=78XPzF0dZwh1GTtWaMEe%2fjQUqePSeRviH1EZWQ49rqM%3d&risl=&pid=ImgRaw&r=0",
   "Golden Retriever": "https://th.bing.com/th/id/R.dc2228475042694689cad662983a7476?rik=iQS7HAYckRmzsg&riu=http%3a%2f%2fso-pet.com%2fwp-content%2fuploads%2f2016%2f11%2fpexels-photo-24871.jpg&ehk=E2h8ToG4VYlN4rAesDc%2fA6197GYm4tD2TRlclwyPsHQ%3d&risl=1&pid=ImgRaw&r=0",
@@ -72,11 +72,10 @@ const Home = ({ userName }) => {
   const { height } = useDimensions(containerRef);
   const [pets, setPets] = useState([]);
   const [userId, setUserId] = useState('');
-  const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
 
   const navigate = useNavigate();
 
-  // Obtener el userId del localStorage al cargar el componente
   useEffect(() => {
     const storedUserId = localStorage.getItem('userId');
     if (storedUserId) {
@@ -89,7 +88,7 @@ const Home = ({ userName }) => {
       axios
         .post(`https://3v3zpv2z-8080.uks1.devtunnels.ms/user/${userId}`)
         .then((response) => {
-          setUsername(response.data.username);
+          setName(response.data.name);
         })
         .catch((error) => {
           console.error("Error al obtener los datos del usuario:", error);
@@ -97,10 +96,9 @@ const Home = ({ userName }) => {
     }
   }, [userId]);
 
-  // Obtener las mascotas del usuario actual
   useEffect(() => {
     const fetchPets = async () => {
-      if (!userId) return; // No hacer nada si no hay userId
+      if (!userId) return; 
       try {
         const response = await axios.get(`https://3v3zpv2z-8080.uks1.devtunnels.ms/user/${userId}/mascots`);
         setPets(response.data);
@@ -117,11 +115,11 @@ const Home = ({ userName }) => {
     navigate(`/pet/${petId}`);
   };
 
-  const getImagenMascota = (breed) => {
-    if (fotosGatos[breed]) {
-        return fotosGatos[breed]
-    } else if (fotosPerros[breed]) {
-        return fotosPerros[breed]
+  const getPhotoPet = (breed) => {
+    if (photosCat[breed]) {
+        return photosCat[breed]
+    } else if (photosDog[breed]) {
+        return photosDog[breed]
     }
     return null
   }
@@ -129,7 +127,7 @@ const Home = ({ userName }) => {
   return (
     <div style={{ background: `linear-gradient(rgba(0, 60, 0, 0.75), rgba(0, 160, 180, 1)`, minHeight: '100vh', padding: '20px', boxSizing: 'border-box' }}>
       <div style={{ textAlign: 'center', color: 'white', marginBottom: '20px' }}>
-        <h1 style={{ fontSize: '2rem',paddingLeft: '1500px' }}>Bienvenido {username}</h1>
+        <h1 style={{ fontSize: '2rem',paddingLeft: '1500px' }}>Bienvenido {name}</h1>
       </div>
       <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
         {pets.map((pet, index) => (
@@ -137,7 +135,7 @@ const Home = ({ userName }) => {
             <div style={{ borderRadius: '10px', overflow: 'hidden', marginBottom: '10px' }}>
               <a href={`/pet/${pet.id}`} onClick={() => handlePetClick(pet.id)}>
               <img
-                  src={getImagenMascota(pet.breed)}
+                  src={getPhotoPet(pet.breed)}
                   alt={pet.name}
                   style={{ width: '300px', height: '300px', borderRadius: '50%', objectFit: 'cover', display: 'block', margin: '0 auto' }}                />
               </a>

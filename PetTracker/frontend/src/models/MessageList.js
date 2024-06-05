@@ -1,5 +1,7 @@
 import React from 'react';
 import Message from './Message';
+import '../css/Chat.css'
+
 
 function MessageList({ messages }) {
   return (

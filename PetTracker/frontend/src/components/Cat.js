@@ -9,7 +9,7 @@ import '../index.css';
 const Cat = () => {
 
   const navigate = useNavigate()
-  const [userId, setUserId] = useState(''); // Estado para almacenar el ID de usuario
+  const [userId, setUserId] = useState(''); 
 
   useEffect(() => {
     const storedUserId = localStorage.getItem('userId');
@@ -19,14 +19,13 @@ const Cat = () => {
   }, []);
 
   const [form, setForm] = useState({
-    tipo: 'cat',
-    gatoNombre: '',
-    gatoRaza: '',
-    gatoEdad: '',
-    gatoTamaño: '',
-    gatoSexo: '',
-    gatoVacunaConf: '',
-    gatoVacunas: ''
+    type: 'cat',
+    name: '',
+    breed: '',
+    year: '',
+    weight: '',
+    sex: '',
+    vaccine: ''
   });
 
   const handleChange = (e) => {
@@ -39,19 +38,19 @@ const Cat = () => {
 
   const translate = (funcName) => {
     return {
-      type:funcName.tipo,
-      name:funcName.gatoNombre,
-      breed: funcName.gatoRaza,
-      year:funcName.gatoEdad,
-      weight:funcName.gatoTamaño,
-      sex:funcName.gatoTamaño,
-      vaccine:funcName.gatoVacunas,
+      type:funcName.type,
+      name:funcName.name,
+      breed: funcName.breed,
+      year:funcName.year,
+      weight:funcName.weight,
+      sex:funcName.sex,
+      vaccine:funcName.vaccine,
     }
   };
 
   const validateForm = () => {
-    const { gatoNombre, gatoRaza, gatoEdad, gatoTamaño, gatoSexo, gatoVacunas } = form;
-    if (!gatoNombre || !gatoRaza || !gatoEdad || !gatoTamaño || !gatoSexo || !gatoVacunas) {
+    const { name, breed, year, weight, sex, vaccine } = form;
+    if (!name || !breed || !year || !weight || !sex || !vaccine) {
       alert('Por favor, rellene todos los campos.');
       return false;
     }

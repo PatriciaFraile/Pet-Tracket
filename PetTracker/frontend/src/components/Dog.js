@@ -9,24 +9,23 @@ const Dog = () => {
 
   const [userId, setUserId] = useState('');
 
-  
   const [form, setForm] = useState({
-    tipo: 'dog',
-    perroNombre: '',
-    perroRaza: '',
-    perroEdad: '',
-    perroTamaño: '',
-    perroSexo: '',
-    perroVacunas: ''
+    type: 'dog',
+    name: '',
+    breed: '',
+    year: '',
+    weight: '',
+    sex: '',
+    vaccine: ''
   });
-  
+
   useEffect(() => {
     const storedUserId = localStorage.getItem('userId');
     if (storedUserId) {
       setUserId(storedUserId);
     } else {
       alert('No se encontró ningún usuario. Por favor, cree un usuario.');
-      navigate('/create-user'); // Redirige al usuario a una página para crear un nuevo usuario
+      navigate('/create-user'); 
     }
   }, [navigate]);
 
@@ -40,19 +39,19 @@ const Dog = () => {
 
   const translate = (funcName) => {
     return {
-      type: funcName.tipo,
-      name: funcName.perroNombre,
-      breed: funcName.perroRaza,
-      year: funcName.perroEdad,
-      weight: funcName.perroTamaño,
-      sex: funcName.perroSexo,
-      vaccine: funcName.perroVacunas,
+      type: funcName.type,
+      name: funcName.name,
+      breed: funcName.breed,
+      year: funcName.year,
+      weight: funcName.weight,
+      sex: funcName.sex,
+      vaccine: funcName.vaccine,
     }
   };
 
   const validateForm = () => {
-    const { perroNombre, perroRaza, perroEdad, perroTamaño, perroSexo, perroVacunas } = form;
-    if (!perroNombre || !perroRaza || !perroEdad || !perroTamaño || !perroSexo || !perroVacunas) {
+    const { name, breed, year, weight, sex, vaccine } = form;
+    if (!name || !breed || !year || !weight || !sex || !vaccine) {
       alert('Por favor, rellene todos los campos.');
       return false;
     }
@@ -71,7 +70,7 @@ const Dog = () => {
       if (response.status === 200) {
         console.log('Datos enviados correctamente');
         // guarda los fatos del form    
-        
+
         const storedDogs = JSON.parse(localStorage.getItem('dogs')) || [];
         storedDogs.push(form);
         localStorage.setItem('dogs', JSON.stringify(storedDogs));
@@ -99,12 +98,12 @@ const Dog = () => {
         <form className="form" onSubmit={handleSubmit}>
           <div className="form-group">
             <label className="label">Nombre del Perro:</label>
-            <input className="input" type="text" name="perroNombre" value={form.perroNombre} onChange={handleChange} />
+            <input className="input" type="text" name="name" value={form.name} onChange={handleChange} />
           </div>
 
           <div className="form-group">
             <label className="label">Raza del Perro:</label>
-            <select className="input" name="perroRaza" value={form.perroRaza} onChange={handleChange}>
+            <select className="input" name="breed" value={form.breed} onChange={handleChange}>
               <option value="">Selecciona una raza</option>
               <option value="Labrador Retriever">Labrador Retriever</option>
               <option value="Pastor Alemán">Pastor Alemán</option>
@@ -126,7 +125,7 @@ const Dog = () => {
 
           <div className="form-group">
             <label className="label">Edad del Perro:</label>
-            <select className="input" name="perroEdad" value={form.perroEdad} onChange={handleChange}>
+            <select className="input" name="year" value={form.year} onChange={handleChange}>
               <option value="">Selecciona una edad</option>
               <option value="Cachorro">Cachorro (menos de 1 año)</option>
               <option value="Joven">Joven (1 - 3 años)</option>
@@ -137,7 +136,7 @@ const Dog = () => {
 
           <div className="form-group">
             <label className="label">Tamaño del Perro:</label>
-            <select className="input" name="perroTamaño" value={form.perroTamaño} onChange={handleChange}>
+            <select className="input" name="weight" value={form.weight} onChange={handleChange}>
               <option value="">Selecciona un tamaño</option>
               <option value="Pequeño">Pequeño (menos de 10 kg)</option>
               <option value="Mediano">Mediano (10 - 25 kg)</option>
@@ -150,11 +149,11 @@ const Dog = () => {
             <label className="label">Sexo del Perro:</label>
             <div className="radio-group">
               <label className="radio-label">
-                <input className="radio-input" type="radio" name="perroSexo" value="Macho" checked={form.perroSexo === 'Macho'} onChange={handleChange} />
+                <input className="radio-input" type="radio" name="sex" value="Macho" checked={form.sex === 'Macho'} onChange={handleChange} />
                 Macho
               </label>
               <label className="radio-label">
-                <input className="radio-input" type="radio" name="perroSexo" value="Hembra" checked={form.perroSexo === 'Hembra'} onChange={handleChange} />
+                <input className="radio-input" type="radio" name="sex" value="Hembra" checked={form.sex === 'Hembra'} onChange={handleChange} />
                 Hembra
               </label>
             </div>
@@ -162,7 +161,7 @@ const Dog = () => {
 
           <div className="form-group">
             <label className="label">Última Vacuna:</label>
-            <select className="input" name="perroVacunas" value={form.perroVacunas} onChange={handleChange}>
+            <select className="input" name="vaccine" value={form.vaccine} onChange={handleChange}>
               <option value="">Selecciona una vacuna</option>
               <option value="Ninguna">Ninguna</option>
               <option value="Moquillo">Moquillo</option>

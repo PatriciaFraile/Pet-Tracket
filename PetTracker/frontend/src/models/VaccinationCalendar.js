@@ -23,4 +23,3 @@ const VaccinationCalendar = ({ vaccinations, onDayClick }) => {
 };
 
 export default VaccinationCalendar;
-

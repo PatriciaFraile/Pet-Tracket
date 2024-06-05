@@ -47,7 +47,7 @@ const UserSettings = () => {
     }
   };
 
-  const handleVolver = () => {
+  const handleReturn = () => {
     navigate("/home");
   };
 
@@ -88,7 +88,7 @@ const UserSettings = () => {
         `https://3v3zpv2z-8080.uks1.devtunnels.ms/update_password/${userId}`,
         {
           old_password: currentPassword,
-          new_password: newPass, // Enviar la contraseña hasheada al servidor
+          new_password: newPass, 
         },
         {
           headers: {
@@ -97,7 +97,7 @@ const UserSettings = () => {
         }
       );
       if (verifyResponse.status === 200) {
-        // Actualizar la contraseña en el estado local y cerrar el modal
+        
         setPassword(newPass);
         setShowModalPass(false);
         console.log("Contraseña cambiada correctamente");
@@ -106,7 +106,7 @@ const UserSettings = () => {
       }
     } catch (error) {
       console.error("Error de red:", error);
-      setInputError(true); // Indicar error en la entrada
+      setInputError(true);
     }
   };
 
@@ -243,7 +243,7 @@ const UserSettings = () => {
           Cerrar Sesión
         </button>
 
-        <button style={styles.volverButton} onClick={handleVolver}>
+        <button style={styles.volverButton} onClick={handleReturn}>
           Volver
         </button>
       </div>

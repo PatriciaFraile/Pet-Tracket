@@ -8,18 +8,22 @@ import logo from '../img/logo.png'
 
 const FrontPage = () => {
     const [text, setText] = useState('');
-    const fullText = "Biienvenido a PetTracker,una aplicación que realiza un seguimiento de tu mascota! Para que siempre recuerdes todos sus cuidados y no se te olviden!"
-    const navigate = useNavigate()
-
+    const fullText = "Bienvenido a PetTracker, una aplicación que realiza un seguimiento de tu mascota! Para que siempre recuerdes todos sus cuidados y no se te olviden!";
+    const navigate = useNavigate();
 
     useEffect(() => {
         let index = 0;
         const interval = setInterval(() => {
-            setText((prev) => prev + fullText[index]);
-            index++;
-            if (index === fullText.length) {
-                clearInterval(interval);
-            }
+            setText((prev) => {
+                if (index < fullText.length) {
+                    const updatedText = prev + fullText[index];
+                    index++;
+                    return updatedText;
+                } else {
+                    clearInterval(interval);
+                    return prev;
+                }
+            });
         }, 50);
         return () => clearInterval(interval);
     }, []);

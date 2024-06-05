@@ -29,7 +29,7 @@ const SignIn = () => {
 
   useEffect(() => {
     const fetchPets = async () => {
-      if (!userId) return; // No hacer nada si no hay userId
+      if (!userId) return; 
       try {
         const response = await axios.get(`https://3v3zpv2z-8080.uks1.devtunnels.ms/user/${userId}/mascots`);
         setPets(response.data);
@@ -50,7 +50,7 @@ const SignIn = () => {
   }, [userId, login, navigate]);
 
   const loginUser = async (e) => {
-    e.preventDefault(); // Evitar el comportamiento por defecto del formulario
+    e.preventDefault(); 
     try {
       const response = await axios.post('https://3v3zpv2z-8080.uks1.devtunnels.ms/login', user);
 
@@ -79,7 +79,7 @@ const SignIn = () => {
   };
 
   const goBack = () => {
-    navigate(-1); // Navega a la página anterior
+    navigate(-1); 
   };
 
   return (
