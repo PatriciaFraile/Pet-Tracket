@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import VaccinationForm from './VaccinationForm';
 import VaccinationCalendar from '../models/VaccinationCalendar';
+import {useNavigate} from 'react-router-dom'
+
 import '../css/Calendar.css';
 
 const Calendar = () => {
   const [vaccinations, setVaccinations] = useState([]);
   const [showForm, setShowForm] = useState(false);
-  const [selectedVaccination, setSelectedVaccination] = useState(null);
+  const [selectedVaccination, setSelectedVaccination] = useState(null)
+  
+  const navigate = useNavigate()
 
   const addVaccination = (vaccination) => {
     setVaccinations([...vaccinations, vaccination]);
@@ -18,6 +22,10 @@ const Calendar = () => {
     const vaccination = vaccinations.find(v => new Date(v.date).toDateString() === clickedDate);
     setSelectedVaccination(vaccination || { date, name: 'No hay vacunas programadas para este día.' });
   };
+
+  const botonVolver = () =>{
+    navigate('/home')
+  }
 
   return (
     <div className="calendar" style={{ background: `linear-gradient(rgba(0, 60, 0, 0.75), rgba(0, 160, 180, 1))`, minHeight: '100vh', padding: '50px', boxSizing: 'border-box' }}>
@@ -49,6 +57,20 @@ const Calendar = () => {
           <button id='button-calendario' onClick={() => setSelectedVaccination(null)}>Cerrar</button>
         </div>
       )}
+            <button
+        style={{
+        width:'200px' ,
+        top:'10px',
+        fontSize: "1rem",
+        borderRadius: "5px",
+        border: "none",
+        backgroundColor: "red",
+        color: "#fff",
+        cursor: "pointer",
+        transition: "background 0.3s ease", }}
+        onClick={botonVolver}
+      >
+        Volver      </button>
     </div>
   );
 };
