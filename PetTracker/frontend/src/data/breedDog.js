@@ -21,7 +21,7 @@ const dogCareInfo = {
       "ordenes": "Ven, No, Vamos, Sienta, Tumba, Quieto",
       "caracteristicas": "Perros inteligentes y activos. Son muy buenos en obediencia y agilidad. Son amigables y se llevan bien con los niños."
     },
-    "pastor aleman": {
+    "aleman": {
       "alimentacion": {
         "cachorro": "Un cachorro de pastor alemán necesita comer tres veces al día y consumir 400 gramos de pienso al día",
         "junior": "Un junior debe comer dos veces al día con una cantidad total de 500 gramos de pienso diario",
@@ -54,7 +54,7 @@ const dogCareInfo = {
       "ordenes": "Ven, No, Vamos, Sienta, Tumba, Quieto",
       "caracteristicas": "Perros amigables y cariñosos. Son buenos compañeros de hogar y se adaptan bien a la vida en apartamento."
     },
-    "bulldog ingles": {
+    "ingles": {
       "alimentacion": {
         "cachorro": "Un cachorro de bulldog inglés debe comer tres veces al día con una porción total de 300 gramos de pienso al día",
         "junior": "Un junior debe ser alimentado dos veces al día con 350 gramos de pienso diario",

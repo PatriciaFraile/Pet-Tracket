@@ -26,7 +26,4 @@ class UpdateMascotModel(BaseModel):
     name: Optional[str] = None
     year: Optional[str] = None
     weight:Optional[str] = None
-    vaccine: list[VaccinationModel] = []
-class AddVaccineRequest(BaseModel):
-    name: str
-    date: str
+    

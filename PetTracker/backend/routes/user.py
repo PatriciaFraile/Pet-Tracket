@@ -3,7 +3,7 @@ from models.user import User , UserLogin, UserCreate , UpdateUserPassword,Update
 from controller.crud import (hash_password , get_user_by_username,verify_password,create_user, create_mascot, 
                              get_user_by_id , get_user,update_mascot,get_mascot,delete_mascot,get_one_mascot,delete_user,
                                get_user_by_email, prox_vaccine,update_password , update_username)
-from models.mascot import CreateMascot,Mascot,UpdateMascotModel,AddVaccineRequest,VaccinationModel
+from models.mascot import CreateMascot,Mascot,UpdateMascotModel,VaccinationModel
 
 user = APIRouter()
 
@@ -81,7 +81,7 @@ async def delete_user_endpoint(user_id: str):
     return await delete_user(user_id)
 
 @user.put("/user/{user_id}/mascot/{mascot_id}/vaccine")
-async def update_mascot_vaccine(user_id: str, mascot_id: str, new_vaccine: AddVaccineRequest):
+async def update_mascot_vaccine(user_id: str, mascot_id: str, new_vaccine: VaccinationModel):
     try:
         vaccination = VaccinationModel(name=new_vaccine.name, date=new_vaccine.date)
         response = await prox_vaccine(user_id, mascot_id, vaccination)

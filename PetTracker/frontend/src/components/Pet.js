@@ -72,7 +72,7 @@ import axios from 'axios';
       const fetchPetDetails = async () => {
         if (!userId || !id) return;
         try {
-          const response = await axios.get(`https://3v3zpv2z-8080.uks1.devtunnels.ms/user/${userId}/mascot/${id}`);
+          const response = await axios.get(`http://localhost:8080/user/${userId}/mascot/${id}`);
           setPet(response.data);
         } catch (error) {
           console.error('Error fetching pet details:', error);
@@ -100,7 +100,7 @@ import axios from 'axios';
   const deletePet = async () => {
     try {
       const response = await axios.delete(
-        `https://3v3zpv2z-8080.uks1.devtunnels.ms/user/${userId}/mascot/${id}`
+        `http://localhost:8080/user/${userId}/mascot/${id}`
       );
       if (response.status === 200) {
         navigate('/home');
@@ -120,7 +120,7 @@ import axios from 'axios';
   
       try {
         const response = await axios.put(
-          `https://3v3zpv2z-8080.uks1.devtunnels.ms/user/${userId}/mascot/${id}`,
+          `http://localhost:8080/user/${userId}/mascot/${id}`,
           { name: newName },
           { headers: { 'Content-Type': 'application/json' } }
         );
@@ -143,7 +143,7 @@ import axios from 'axios';
   
       try {
         const response = await axios.put(
-          `https://3v3zpv2z-8080.uks1.devtunnels.ms/user/${userId}/mascot/${id}`,
+          `http://localhost:8080/user/${userId}/mascot/${id}`,
           { weight: newWeight },
           { headers: { 'Content-Type': 'application/json' } }
         );
@@ -166,7 +166,7 @@ import axios from 'axios';
   
       try {
         const response = await axios.put(
-          `https://3v3zpv2z-8080.uks1.devtunnels.ms/user/${userId}/mascot/${id}`,
+          `http://localhost:8080/user/${userId}/mascot/${id}`,
           { year: newAge },
           { headers: { 'Content-Type': 'application/json' } }
         );

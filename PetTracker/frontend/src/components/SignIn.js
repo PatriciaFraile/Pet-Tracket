@@ -31,7 +31,7 @@ const SignIn = () => {
     const fetchPets = async () => {
       if (!userId) return; 
       try {
-        const response = await axios.get(`https://3v3zpv2z-8080.uks1.devtunnels.ms/user/${userId}/mascots`);
+        const response = await axios.get(`http://localhost:8080/user/${userId}/mascots`);
         setPets(response.data);
         if (response.data.length > 0) {
           navigate("/home");
@@ -52,7 +52,7 @@ const SignIn = () => {
   const loginUser = async (e) => {
     e.preventDefault(); 
     try {
-      const response = await axios.post('https://3v3zpv2z-8080.uks1.devtunnels.ms/login', user);
+      const response = await axios.post('http://localhost:8080/login', user);
 
       if (response.data.id) {
         localStorage.setItem('userId', response.data.id);

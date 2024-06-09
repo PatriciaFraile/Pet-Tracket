@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+passlib[bcrypt]
+uuid
+typing
+pydantic
+pymongo
+motor
+starlette

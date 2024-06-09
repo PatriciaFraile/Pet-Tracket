@@ -62,7 +62,7 @@ const Cat = () => {
     e.preventDefault();
     if (!validateForm()) return;
     try {
-      const response = await axios.put(`https://3v3zpv2z-8080.uks1.devtunnels.ms/${userId}/add_mascot`, translate(form), {
+      const response = await axios.put(`http://localhost:8080/${userId}/add_mascot`, translate(form), {
         headers: {
           'Content-Type': 'application/json',
         }

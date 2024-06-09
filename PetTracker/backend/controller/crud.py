@@ -6,8 +6,6 @@ from bcrypt import hashpw, gensalt, checkpw
 import uuid
 import bcrypt
 from fastapi import HTTPException
-from apscheduler.schedulers.asyncio import AsyncIOScheduler
-import datetime
 
 
 async def get_user_by_username(username: str):
@@ -152,28 +150,6 @@ async def prox_vaccine(user_id: str, mascot_id: str, new_vaccine: VaccinationMod
         print(f"Vaccination could not be added: {e}")
         return {"error": str(e)}
 
-async def update_vaccines():
-    users = await collection_name.find().to_list(length=None)
-    today = datetime.datetime.now().date()
-
-    for user in users:
-        mascots = user.get("mascots", [])
-        updated = False
-
-        for mascot in mascots:
-            for vaccination in mascot.get("vaccine", []):
-                vaccination_date = datetime.datetime.strptime(vaccination["date"], "%Y-%m-%d").date()
-                if vaccination_date == today:
-                    vaccination["status"] = "completed"  # Update the status to completed or any other relevant update
-                    updated = True
-
-        if updated:
-            await collection_name.update_one({"id": user["id"]}, {"$set": {"mascots": mascots}})
-
-# Scheduler setup
-scheduler = AsyncIOScheduler()
-scheduler.add_job(update_vaccines, 'interval', days=1)
-scheduler.start()
 async def mascot_exists(user_id: str, mascot_id: str):
     user = await collection_name.find_one({"id": user_id})
     if user is None:
