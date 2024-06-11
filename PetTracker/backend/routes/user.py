@@ -92,9 +92,9 @@ async def update_mascot_vaccine(user_id: str, mascot_id: str, new_vaccine: Vacci
         raise HTTPException(status_code=404, detail=str(e))
 
 @user.put("/update_password/{user_id}")
-async def update_password_route(user_id: str, update_password: UpdateUserPassword):
-    return await update_password(user_id, update_password)
+async def update_password_route(user_id: str, password: UpdateUserPassword):
+    return await update_password(user_id, password)
 
 @user.put("/update_username/{user_id}")
-async def update_username_route(user_id: str, update_username: UpdateUserUserName):
-    return await update_username(user_id, update_username) 
+async def update_username_route(user_id: str, username: UpdateUserUserName):
+    return await update_username(user_id, username) 
